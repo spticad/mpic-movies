@@ -13,6 +13,7 @@
         <module>webapp</module>
         <module>algo</module>
         <module>models</module>
+        <module>db</module>
     </modules>
 
     <properties>
