@@ -1,3 +1,5 @@
+package models;
+
 public class Movie {
     private long id;
     private String title;
