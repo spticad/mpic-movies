@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="vitaly (generated)" id="1393914253885-1">
+        <createTable tableName="movies">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="movie_id"/>
+            </column>
+            <column name="title" type="VARCHAR"/>
+            <column name="imdb_picture_url" type="VARCHAR"/>
+            <column name="imdb_id" type="VARCHAR"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="vitaly (generated)" id="1393914253885-2">
+        <createTable tableName="ratings">
+            <column name="user_id" type="INT8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="movie_id" type="INT8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rating" type="FLOAT4"/>
+            <column name="timestamp" type="TIMESTAMP WITH TIME ZONE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="vitaly (generated)" id="1393914253885-3">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" primaryKeyName="user_id"/>
+            </column>
+            <column name="email" type="VARCHAR"/>
+            <column name="password" type="VARCHAR"/>
+            <column name="registration_date" type="TIMESTAMP WITH TIME ZONE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="vitaly (generated)" id="1393914253885-4">
+        <addPrimaryKey columnNames="user_id, movie_id" constraintName="rating_id" tableName="ratings"/>
+    </changeSet>
+    <changeSet author="vitaly (generated)" id="1393914253885-5">
+        <addForeignKeyConstraint baseColumnNames="movie_id" baseTableName="ratings" constraintName="ratings_movie_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="movies"/>
+    </changeSet>
+    <changeSet author="vitaly (generated)" id="1393914253885-6">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="ratings" constraintName="ratings_user_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users"/>
+    </changeSet>
+</databaseChangeLog>
