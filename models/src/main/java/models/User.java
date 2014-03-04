@@ -1,13 +1,14 @@
 package models;
 
-import java.util.Date;
+import org.joda.time.DateTime;
+
 public class User {
     private long id;
     private String email;
     private String password;
-    private Date registrationDate;
+    private DateTime registrationDate;
 
-    public User(long id, String email, String password, Date registrationDate) {
+    public User(long id, String email, String password, DateTime registrationDate) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -38,11 +39,11 @@ public class User {
         this.password = password;
     }
 
-    public Date getRegistrationDate() {
+    public DateTime getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(Date registrationDate) {
+    public void setRegistrationDate(DateTime registrationDate) {
         this.registrationDate = registrationDate;
     }
 }
