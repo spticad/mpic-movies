@@ -23,11 +23,6 @@
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-moxy</artifactId>
         </dependency>
-        <dependency>
-            <groupId>postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>9.1-901.jdbc4</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -50,26 +45,6 @@
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>3.1.1</version>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <changeLogFile>src/main/resources/db.changelog.xml</changeLogFile>
-                            <driver>org.postgresql.Driver</driver>
-                            <url>jdbc:postgresql://localhost/mpic-movies</url>
-                            <username>postgres</username>
-                            <password>sql</password>
-                        </configuration>
-                        <goals>
-                            <goal>update</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
