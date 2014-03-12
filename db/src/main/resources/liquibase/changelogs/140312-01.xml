@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="VitalyIvanov" id="140312-01">
+        <addColumn tableName="users">
+            <column name="g_id" type="VARCHAR"/>
+        </addColumn>
+        <addColumn tableName="users">
+            <column name="g_name" type="VARCHAR"/>
+        </addColumn>
+        <addColumn tableName="users">
+            <column name="g_email" type="VARCHAR"/>
+        </addColumn>
+        <addColumn tableName="users">
+            <column name="g_image" type="VARCHAR"/>
+        </addColumn>
+        <addColumn tableName="users">
+            <column name="access_token" type="VARCHAR"/>
+        </addColumn>
+        <dropColumn tableName="users" columnName="password"/>
+        <dropColumn tableName="users" columnName="email"/>
+    </changeSet>
+</databaseChangeLog>
