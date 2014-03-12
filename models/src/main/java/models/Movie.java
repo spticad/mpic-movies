@@ -6,6 +6,9 @@ public class Movie {
     private String imdbPictureURL;
     private String imdbId;
 
+    public Movie() {
+    }
+
     public Movie(long id, String title, String imdbPictureURL, String imdbId) {
         this.id = id;
         this.title = title;
