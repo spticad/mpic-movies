@@ -16,9 +16,19 @@
 
     <dependencies>
         <dependency>
+            <groupId>mpic-movies</groupId>
+            <artifactId>models</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.1-901.jdbc4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jdbi</groupId>
+            <artifactId>jdbi</artifactId>
+            <version>2.53</version>
         </dependency>
     </dependencies>
 
