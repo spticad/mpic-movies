@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title></title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css//bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/full-slider.css">
+    <link rel="stylesheet" href="rateit/src/rateit_small.css">
+
+    <script src="jquery/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="rateit/src/jquery.rateit.js" type="text/javascript"></script>
+
+</head>
+<body>
+
+<nav class="navbar" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle navbar-inverse" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <div class="logo"></div>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav right tpad">
+                <li><a href="#about">About</a>
+                </li>
+                <li><a href="#services">Rating</a>
+                </li>
+                <li><a href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+
+
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+<div class="container textcenter">
+    <div class="next nonselect" style="margin-top: 0; margin-bottom: 1em">
+        Suggest other movies
+    </div>
+
+    <div class="movie" left medium  id="movie1">
+            <div class="addInfo" style="display: none">
+            <p>
+            <table>
+                <tr><td title>Genre:</td><td id="genre1">Biography &#183; Drama</td></tr>
+                <tr><td title>Director:</td><td id="director1">David Fincher</td></tr>
+                <tr><td title>Stars:</td><td id="stars1">Jesse Eisenberg, Andrew Garfield, Justin Timberlake</td></tr>
+            </table>
+            </p>
+            <p id="description1">
+                Harvard student Mark Zuckerberg creates the social networking site that would become known as Facebook, but is later sued by two brothers who claimed he stole their idea, and the cofounder who was later squeezed out of the business.
+            </p>
+            </div>
+            <div class="poster">
+                <img id="poster1" src="images/1.jpg"/>
+            </div>
+            <div class="rateblock">
+            <h3 id="title1">Social Network</h3>
+            <div id="year1" class="shortinfo">2010</div>
+            <div class="watched" number="1">Watched</div>
+            <select id="rate1">
+                <option value="0"></option>
+                <option value="1"></option>
+                <option value="2"></option>
+                <option value="3"></option>
+                <option value="4"></option>
+                <option value="5"></option>
+                <option value="6"></option>
+                <option value="7"></option>
+                <option value="8"></option>
+                <option value="9"></option>
+                <option value="10"></option>
+            </select>
+            <div class="rateit" style="display: none; margin-top: 0px" number="1" data-rateit-backingfld="#rate1"></div>
+            <h4 id="ratedvalue1" class="rvalue" style="display: none;" class="tspad">
+                Rate this movie
+                <h4>
+        </div>
+    </div>
+
+    <div class="movie" left medium id="movie2">
+        <div class="addInfo" style="display: none">
+            <p>
+            <table>
+                <tr><td title>Genre:</td><td id="genre2">Biography &#183; Drama</td></tr>
+                <tr><td title>Director:</td><td id="director2">David Fincher</td></tr>
+                <tr><td title>Stars:</td><td id="stars2">Jesse Eisenberg, Andrew Garfield, Justin Timberlake</td></tr>
+            </table>
+            </p>
+            <p id="description2"k>
+                Harvard student Mark Zuckerberg creates the social networking site that would become known as Facebook, but is later sued by two brothers who claimed he stole their idea, and the cofounder who was later squeezed out of the business.
+            </p>
+        </div>
+        <div class="poster">
+            <img id="poster2" src="images/2.jpg"/>
+        </div>
+        <div class="rateblock">
+            <h3 id="title2">Social Network</h3>
+            <div id="year2" class="shortinfo">2010</div>
+            <div class="watched" number="2">Watched</div>
+            <select id="rate2">
+                <option value="0"></option>
+                <option value="1"></option>
+                <option value="2"></option>
+                <option value="3"></option>
+                <option value="4"></option>
+                <option value="5"></option>
+                <option value="6"></option>
+                <option value="7"></option>
+                <option value="8"></option>
+                <option value="9"></option>
+                <option value="10"></option>
+            </select>
+            <div class="rateit" style="display: none; margin-top: 0px" number="2" data-rateit-backingfld="#rate2"></div>
+            <h4 id="ratedvalue2" class="rvalue" style="display: none;" class="tspad">
+                Rate this movie
+                <h4>
+        </div>
+    </div>
+
+    <div class="movie" left medium id="movie3">
+        <div class="addInfo" style="display: none">
+            <p>
+            <table>
+                <tr><td title>Genre:</td><td id="genre3">Biography &#183; Drama</td></tr>
+                <tr><td title>Director:</td><td id="director3">David Fincher</td></tr>
+                <tr><td title>Stars:</td><td id="stars3">Jesse Eisenberg, Andrew Garfield, Justin Timberlake</td></tr>
+            </table>
+            </p>
+            <p id="description3">
+                Harvard student Mark Zuckerberg creates the social networking site that would become known as Facebook, but is later sued by two brothers who claimed he stole their idea, and the cofounder who was later squeezed out of the business.
+            </p>
+        </div>
+        <div class="poster">
+            <img id="poster3" src="images/1.jpg"/>
+        </div>
+        <div class="rateblock">
+            <h3 id="title3">Social Network</h3>
+            <div id="year3" class="shortinfo">2010</div>
+            <div class="watched"  number="3">Watched</div>
+            <select id="rate3">
+                <option value="0"></option>
+                <option value="1"></option>
+                <option value="2"></option>
+                <option value="3"></option>
+                <option value="4"></option>
+                <option value="5"></option>
+                <option value="6"></option>
+                <option value="7"></option>
+                <option value="8"></option>
+                <option value="9"></option>
+                <option value="10"></option>
+            </select>
+            <div class="rateit" style="display: none; margin-top: 0px" number="3" data-rateit-backingfld="#rate3"></div>
+            <h4 id="ratedvalue3" class="rvalue" style="display: none;" class="tspad">
+                Rate this movie
+                <h4>
+        </div>
+    </div>
+
+</div>
+<div class="container textcenter">
+
+
+</div>
+
+<div class="container">
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <hr>
+                <div class="left">Copyright &copy; Vitaly Borisovich & Co</div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+
+    var defaultValue = "Rate this movie";
+    var svalue = new Array();
+    svalue[0] = defaultValue;
+    svalue[1] = defaultValue;
+    svalue[2] = defaultValue;
+    $(".rateit").bind('rated', function() {
+        $("#ratedvalue" + $(this).attr('number')).html($(this).rateit('value') + " of 10");
+        svalue[parseInt($(this).attr('number'))-1] = $(this).rateit('value') + " of 10";
+    });
+
+    $(".rateit").bind('over', function (event, value) {
+        if (value)
+        {
+            $("#ratedvalue" + $(this).attr('number')).html(value + " of 10");
+        }
+    } );
+
+    $(".rateit").mouseleave(function() {
+        var tmp = $(this).attr('number');
+        $("#ratedvalue" + tmp).fadeOut('fast', function() {
+            $(this).html(svalue[parseInt(tmp)-1]);
+            $(this).fadeIn('fast');
+        });
+    });
+
+    $(".poster").mouseover(function(){
+        $(this).prev().fadeIn('fast');
+        clearBlurEffect();
+        var id = $(this).parent().attr("id");
+        if (id == "movie1")
+        {
+            $("#movie1").removeAttr("highblur");
+            $("#movie2").attr("highblur", true);
+            $("#movie3").attr("highblur", true);
+        }
+        else if (id == "movie2")
+        {
+            $("#movie1").attr("highblur", true);
+            $("#movie2").removeAttr("highblur");
+            $("#movie3").attr("highblur", true);
+        }
+        else if (id == "movie3")
+        {
+            $("#movie1").attr("highblur", true);
+            $("#movie2").attr("highblur", true);
+            $("#movie3").removeAttr("highblur");
+        }
+    });
+
+    $(".poster").mouseout(function(){
+        $(this).prev().fadeOut('fast');
+        clearBlurEffect();
+    });
+
+    function clearBlurEffect()
+    {
+        $("#movie1").removeAttr("highblur");
+        $("#movie2").removeAttr("highblur");
+        $("#movie3").removeAttr("highblur");
+
+
+    }
+
+    $(".next").click(function(){
+        $("#ratedvalue1").fadeOut('fast');
+        $("#ratedvalue2").fadeOut('fast');
+        $("#ratedvalue3").fadeOut('fast');
+
+        $(".rateit").each(function() {
+            $(this).fadeOut('fast');
+        });
+
+        $(".poster").each(function() {
+            $(this).fadeOut('slow', function()
+            {
+                var id1 = getRandomInt(1,7);
+                fillMovieData(movies[id1], 1, id1);
+
+                var id2 = getRandomInt(1,7);
+                fillMovieData(movies[id2], 2, id2);
+
+                var id3 = getRandomInt(1,7);
+                fillMovieData(movies[id3], 3, id3);
+
+                $("#ratedvalue1").html(defaultValue);
+                $("#ratedvalue2").html(defaultValue);
+                $("#ratedvalue3").html(defaultValue);
+                $('.rateit').rateit('reset');
+                svalue[0] = defaultValue;
+                svalue[1] = defaultValue;
+                svalue[2] = defaultValue;
+
+                $(".poster").each(function() {
+                    $(this).fadeIn('fast');
+                });
+
+                $(".watched").each(function() {
+                    $(this).fadeIn('fast');
+                });
+            });
+        });
+
+
+
+
+
+    })
+
+    function fillMovieData(movie, number, id)
+    {
+        $("#poster" + number).attr("src","images/" + id + ".jpg");
+
+        $("#title" + number).html(movie.title);
+        $("#genre" + number).html(movie.genre);
+        $("#description" + number).html(movie.description);
+        $("#director" + number).html(movie.director);
+        $("#year" + number).html(movie.year);
+        $("#stars" + number).html(movie.stars);
+    }
+
+    $(".watched").click(function(){
+        $(this).fadeOut('fast', function() {
+            var num = $(this).attr("number");
+            $("#ratedvalue" + $(this).attr("number")).fadeIn('fast');
+            $(".rateit").each(function() {
+                if ($(this).attr("number") == num)
+                    $(this).fadeIn('fast');
+            });
+        });
+    });
+
+    function getRandomInt (min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    var movies= {
+        '1': {
+            'title': 'The Social Network',
+            'genre': 'Biography · Drama',
+            'year': '2010',
+            'description': 'Harvard student Mark Zuckerberg creates the social networking site that would become known as Facebook, but is later sued by two brothers who claimed he stole their idea, and the cofounder who was later squeezed out of the business.',
+            'director': 'David Fincher',
+            'stars': 'Jesse Eisenberg, Andrew Garfield, Justin Timberlake'
+        },
+        '2': {
+            'title': 'The Lord of the Rings: The Fellowship of the Ring',
+            'genre': ' Action · Adventure · Fantasy',
+            'year': '2001',
+            'description': 'A meek hobbit of The Shire and eight companions set out on a journey to Mount Doom to destroy the One Ring and the dark lord Sauron.',
+            'director': 'Peter Jackson',
+            'stars': 'Elijah Wood, Ian McKellen, Orlando Bloom'
+        },
+        '3': {
+            'title': 'Inception',
+            'genre': 'Action · Adventure · Mystery',
+            'year': '2010',
+            'description': 'A skilled extractor is offered a chance to regain his old life as payment for a task considered to be impossible.',
+            'director': 'Christopher Nolan',
+            'stars': ' Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page'
+        },
+        '4': {
+            'title': 'The Matrix',
+            'genre': ' Action · Adventure · Sci-Fi ',
+            'year': '1999',
+            'description': 'A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.',
+            'director': 'The Wachowski Brothers',
+            'stars': 'Keanu Reeves, Laurence Fishburne, Carrie-Anne '
+        },
+        '5': {
+            'title': 'American Beauty',
+            'genre': 'Drama',
+            'year': '1999',
+            'description': 'Lester Burnham, a depressed suburban father in a mid-life crisis, decides to turn his hectic life around after developing an infatuation for his daughters attractive friend.',
+            'director': 'Sam Mendes',
+            'stars': 'Kevin Spacey, Annette Bening, Thora Birch'
+        },
+        '6': {
+            'title': 'The Truman Show',
+            'genre': 'Comedy · Drama · Sci-Fi',
+            'year': '1998',
+            'description': 'An insurance salesman/adjuster discovers his entire life is actually a T.V. show.',
+            'director': 'Peter Weir',
+            'stars': 'Jim Carrey, Ed Harris, Laura Linney '
+        },
+        '7': {
+            'title': 'Dallas Buyers Club',
+            'genre': 'Biography · Drama · History',
+            'year': '2013',
+            'description': 'In 1985 Dallas, electrician and hustler Ron Woodroof works around the system to help AIDS patients get the medication they need after he is himself diagnosed with the disease.',
+            'director': 'Jean-Marc Vallée',
+            'stars': ' Matthew McConaughey, Jennifer Garner, Jared Leto'
+        }
+    }
+
+
+
+</script>
