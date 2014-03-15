@@ -1,12 +1,9 @@
-package db;
+package db.DaoLogic;
 
+import db.Dao.UserDao;
 import models.User;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.skife.jdbi.v2.DBI;
-import org.skife.jdbi.v2.Handle;
-import org.skife.jdbi.v2.sqlobject.Bind;
-
-import javax.sql.DataSource;
 
 /**
  * Created by vitaly on 3/12/14.
