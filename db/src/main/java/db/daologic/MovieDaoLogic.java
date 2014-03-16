@@ -1,6 +1,6 @@
-package db.DaoLogic;
+package db.daologic;
 
-import db.Dao.MovieDao;
+import db.dao.MovieDao;
 import models.Movie;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.skife.jdbi.v2.DBI;

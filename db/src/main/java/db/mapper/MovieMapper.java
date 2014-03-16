@@ -1,4 +1,4 @@
-package db.Mapper;
+package db.mapper;
 
 import models.Movie;
 import org.skife.jdbi.v2.StatementContext;

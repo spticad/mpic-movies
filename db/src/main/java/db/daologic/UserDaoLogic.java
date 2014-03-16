@@ -1,6 +1,6 @@
-package db.DaoLogic;
+package db.daologic;
 
-import db.Dao.UserDao;
+import db.dao.UserDao;
 import models.User;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.skife.jdbi.v2.DBI;
