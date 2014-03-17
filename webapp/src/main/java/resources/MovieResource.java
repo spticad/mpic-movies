@@ -5,9 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import services.MovieService;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.lang.invoke.MethodHandles;
 
@@ -28,4 +26,22 @@ public class MovieResource {
         log.info("get for rating");
         return service.getForRating();
     }
+
+    @POST
+    @Path("{id}/{rating}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String rating (){
+        log.info("post rating");
+        return service.addRating("id",2);
+    }
+
+    @GET
+    @Path("/recommended?limit={limit}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String recommended(){
+        log.info("recommended films");
+        return service.recommendedMovie();
+    }
+
+
 }
