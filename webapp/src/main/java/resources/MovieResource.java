@@ -8,6 +8,7 @@ import services.MovieService;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.lang.invoke.MethodHandles;
+import java.util.List;
 
 /**
  * Created by vitaly on 3/12/14.
@@ -30,18 +31,15 @@ public class MovieResource {
     @POST
     @Path("{id}/{rating}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String rating (){
+    public void rating (@PathParam("id") long id, @PathParam("rating") int rating){
         log.info("post rating");
-        return service.addRating("id",2);
     }
 
     @GET
     @Path("/recommended?limit={limit}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String recommended(){
+    public List<Movie> recommended(){
         log.info("recommended films");
-        return service.recommendedMovie();
+        return service.recommendedMovies();
     }
-
-
 }

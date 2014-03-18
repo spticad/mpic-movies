@@ -30,4 +30,6 @@ public final class Configuration {
             throw new RuntimeException("loading config failed", e);
         }
     }
+
+    private Configuration() {}
 }

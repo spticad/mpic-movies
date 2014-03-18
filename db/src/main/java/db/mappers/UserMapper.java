@@ -1,4 +1,4 @@
-package db.mapper;
+package db.mappers;
 
 import models.User;
 import org.joda.time.DateTime;

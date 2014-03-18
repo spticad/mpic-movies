@@ -2,6 +2,9 @@ package services;
 
 import models.Movie;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by vitaly on 3/12/14.
  */
@@ -11,13 +14,15 @@ public class MovieService {
         return new Movie(1, "Casper", "url", "imdb id");
     }
 
-    public String addRating(String id, Integer rating ){
-        return  id+rating.toString() ;
+    public void addRating(long id, int rating ){
+        //TODO: call db logic
     }
 
-    public String recommendedMovie() {
-        return "[{\"title\":\"Casper\",\"imdb\":\"tt0111161\",\"imdb_pic\":\"%scr%\"},\n" +
-                "{\"title\":\"Casper: Revenge\",\"imdb\":\"tt0111162\",\"imdb_pic\":\"%scr1%\"},\n" +
-                "{\"title\":\"Casper: Blood Juice\",\"imdb\":\"tt0111163\",\"imdb_pic\":\"%scr3%\"}]";
+    public List<Movie> recommendedMovies() {
+        List<Movie> movies = new ArrayList<>();
+        movies.add(new Movie(1, "Casper", "url", "imdb id"));
+        movies.add(new Movie(2, "Casper: Revenge", "url", "imdb id"));
+        movies.add(new Movie(3, "Blood Juice", "url", "imdb id"));
+        return movies;
     }
 }

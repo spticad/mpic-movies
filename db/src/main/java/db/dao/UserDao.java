@@ -1,6 +1,6 @@
 package db.dao;
 
-import db.mapper.UserMapper;
+import db.mappers.UserMapper;
 import models.User;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;

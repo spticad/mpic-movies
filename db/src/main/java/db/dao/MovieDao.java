@@ -1,6 +1,6 @@
 package db.dao;
 
-import db.mapper.MovieMapper;
+import db.mappers.MovieMapper;
 import models.Movie;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
