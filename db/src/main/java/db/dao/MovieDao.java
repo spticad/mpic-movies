@@ -4,6 +4,7 @@ import db.mappers.MovieMapper;
 import models.Movie;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
+import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 
 /**
@@ -18,10 +19,10 @@ public interface MovieDao {
     @Mapper(MovieMapper.class)
     Movie getByImdbId(@Bind("imdb_id") String imdbId);
 
-    @SqlQuery("update movies set imdb_id = :imdb_id where id=:id")
+    @SqlUpdate("update movies set imdb_id = :imdb_id where id=:id")
     void updateImdbId(@Bind("imdb_id") String imdbId, @Bind("id") long id);
 
-    @SqlQuery("update movies set imdb_picture_url = :imdb_picture_url where id=:id")
+    @SqlUpdate("update movies set imdb_picture_url = :imdb_picture_url where id=:id")
     void updateImdbPictureUrl(@Bind("imdb_picture_url") String imdbPictureURL, @Bind("id") long id);
 
     @SqlQuery("insert into movies(title, imdb_id, imdb_picture_url) " +

@@ -1,5 +1,7 @@
 package services;
 
+import db.DbiManager;
+import db.daologic.MovieDaoLogic;
 import models.Movie;
 
 import java.util.ArrayList;
@@ -10,8 +12,11 @@ import java.util.List;
  */
 public class MovieService {
 
+    private MovieDaoLogic movieDaoLogic =
+            new MovieDaoLogic(DbiManager.getDbi());
+
     public Movie getForRating() {
-        return new Movie(1, "Casper", "url", "imdb id");
+        return movieDaoLogic.getById(1);
     }
 
     public void addRating(long id, int rating ){

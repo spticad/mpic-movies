@@ -1,5 +1,6 @@
 package db.daologic;
 
+import db.DbiManager;
 import db.dao.MovieDao;
 import models.Movie;
 import org.postgresql.ds.PGPoolingDataSource;
@@ -13,82 +14,44 @@ import java.sql.SQLException;
  */
 public class MovieDaoLogic {
 
-    public class UserDaoLogic {
+        private DBI dbi;
 
-        private MovieDao getDao() {
-
-            PGSimpleDataSource ds = new PGSimpleDataSource();
-            ds.setDatabaseName("mpic-movies");
-            ds.setServerName("localhost");
-            ds.setPortNumber(5432);
-            ds.setUser("postgres");
-
-           /* PGPoolingDataSource ds = new PGPoolingDataSource();
-            ds.setDataSourceName("DataSource");
-            ds.setServerName("localhost");
-            ds.setDatabaseName("mpic-movies");
-            ds.setUser("postgres");
-            ds.setPassword("");
-            ds.setMaxConnections(10);
-            */
-
-            DBI dbi = new DBI(ds);
-            MovieDao dao = dbi.open(MovieDao.class);
-            return dao;
+        public MovieDaoLogic(DBI dbi) {
+            this.dbi = dbi;
         }
 
         public Movie getById(long id) {
-         /*
-            MovieDao dao = null;
-            Movie movie = null;
-            try {
-
-                dao = getDao();
-                movie = dao.getById(id);
-                dao.close();
-            } catch (SQLException e) {
-            } finally {
-                if (dao != null) {
-                    try {
-                        dao.close();
-                    } catch (SQLException e) {
-                    }
-                }
-            }
-         */
-
-            MovieDao dao = getDao();
+            MovieDao dao = dbi.open(MovieDao.class);
             Movie movie = dao.getById(id);
             dao.close();
             return movie;
         }
 
         public Movie getByImdbId(String imdbId) {
-            MovieDao dao = getDao();
+            MovieDao dao = dbi.open(MovieDao.class);
             Movie movie = dao.getByImdbId(imdbId);
             dao.close();
             return movie;
         }
 
         public void updateImdbId(String imdbId, long id) {
-            MovieDao dao = getDao();
+            MovieDao dao = dbi.open(MovieDao.class);
             dao.updateImdbId(imdbId, id);
             dao.close();
         }
 
         public void updateImdbPictureUrl(String imdbPictureURL, long id) {
-            MovieDao dao = getDao();
+            MovieDao dao = dbi.open(MovieDao.class);
             dao.updateImdbPictureUrl(imdbPictureURL, id);
             dao.close();
         }
 
         public long insert(String title, String imdbId, String ImdbPictureURL) {
-            MovieDao dao = getDao();
+            MovieDao dao = dbi.open(MovieDao.class);
             long id = dao.insert(title, imdbId, ImdbPictureURL);
             dao.close();
             return id;
         }
-    }
 }
 
 

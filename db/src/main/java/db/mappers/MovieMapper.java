@@ -13,6 +13,6 @@ import java.sql.SQLException;
 public class MovieMapper implements ResultSetMapper<Movie> {
     @Override
     public Movie map(int i, ResultSet rs, StatementContext statementContext) throws SQLException {
-        return new Movie(rs.getLong("id"), rs.getString("title"), rs.getString("imdb_id"), rs.getString("imd_picture_url"));
+        return new Movie(rs.getLong("id"), rs.getString("title"), rs.getString("imdb_picture_url"), rs.getString("imdb_id"));
     }
 }

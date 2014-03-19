@@ -1,4 +1,5 @@
 import config.Configuration;
+import db.DbiManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,10 +15,20 @@ public class ContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        log.info("load config");
+        log.info("context initialized");
 
+        try {
         log.info(Configuration.DB.toString());
         log.info(Configuration.OAUTH.toString());
+
+        DbiManager.setUp(Configuration.DB.getDriverClassName(),
+                Configuration.DB.getUrl(),
+                Configuration.DB.getUser(),
+                "");
+        } catch(Exception ex) {
+            log.error("cannot setup configs", ex);
+            throw new RuntimeException("context initialized failed", ex);
+        }
     }
 
     @Override

@@ -29,16 +29,16 @@ public class MovieResource {
     }
 
     @POST
-    @Path("{id}/{rating}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void rating (@PathParam("id") long id, @PathParam("rating") int rating){
+    public void rating (@PathParam("id") long id, @FormParam("rating") int rating){
         log.info("post rating");
     }
 
     @GET
     @Path("/recommended?limit={limit}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Movie> recommended(){
+    public List<Movie> recommended(@PathParam("limit") int limit){
         log.info("recommended films");
         return service.recommendedMovies();
     }
