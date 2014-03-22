@@ -4,6 +4,7 @@ import db.mappers.UserMapper;
 import models.User;
 import org.skife.jdbi.v2.sqlobject.Bind;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
+import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 
 /**
@@ -18,7 +19,7 @@ public interface UserDao {
     @Mapper(UserMapper.class)
     User getByToken(@Bind("access_token") String token);
 
-    @SqlQuery("update users set access_token = :access_token where id = :id")
+    @SqlUpdate("update users set access_token = :access_token where id = :id")
     void updateToken(@Bind("access_token") String token, @Bind("id") long id);
 
     @SqlQuery("insert into users(registration_date, g_id, g_name, g_email, g_image, access_token) " +

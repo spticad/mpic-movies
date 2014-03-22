@@ -47,4 +47,14 @@ public class Movie {
     public void setImdbId(String imdbId) {
         this.imdbId = imdbId;
     }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", imdbPictureURL='" + imdbPictureURL + '\'' +
+                ", imdbId='" + imdbId + '\'' +
+                '}';
+    }
 }

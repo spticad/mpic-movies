@@ -15,6 +15,7 @@ public final class Configuration {
 
     public static final DbConfig DB;
     public static final GoogleOAuthConfig OAUTH;
+    public static final boolean PARSE_DATASET;
 
     static {
         try {
@@ -25,6 +26,7 @@ public final class Configuration {
                     config.getProperty("db.url"), config.getProperty("db.user"));
             OAUTH = new GoogleOAuthConfig(config.getProperty("google.clientId"),
                     config.getProperty("google.secret"));
+            PARSE_DATASET = Boolean.parseBoolean(config.getProperty("parseDataset"));
         } catch (IOException e) {
             log.error("loading config failed", e);
             throw new RuntimeException("loading config failed", e);

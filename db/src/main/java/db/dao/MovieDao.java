@@ -11,6 +11,10 @@ import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
  * Created by Alex on 15/03/14.
  */
 public interface MovieDao {
+
+    @SqlQuery("select count(*) from movies")
+    long moviesCount();
+
     @SqlQuery("select * from movies where id = :id")
     @Mapper(MovieMapper.class)
     Movie getById(@Bind("id") long id);

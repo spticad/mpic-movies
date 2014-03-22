@@ -1,5 +1,6 @@
 import config.Configuration;
 import db.DbiManager;
+import hetrecparser.HetrecParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,14 +19,18 @@ public class ContextListener implements ServletContextListener {
         log.info("context initialized");
 
         try {
-        log.info(Configuration.DB.toString());
-        log.info(Configuration.OAUTH.toString());
+            log.info(Configuration.DB.toString());
+            log.info(Configuration.OAUTH.toString());
 
-        DbiManager.setUp(Configuration.DB.getDriverClassName(),
-                Configuration.DB.getUrl(),
-                Configuration.DB.getUser(),
-                "");
-        } catch(Exception ex) {
+            DbiManager.setUp(Configuration.DB.getDriverClassName(),
+                    Configuration.DB.getUrl(),
+                    Configuration.DB.getUser(),
+                    "");
+
+            if (Configuration.PARSE_DATASET) {
+                HetrecParser.parseHetrecDataset();
+            }
+        } catch (Exception ex) {
             log.error("cannot setup configs", ex);
             throw new RuntimeException("context initialized failed", ex);
         }
