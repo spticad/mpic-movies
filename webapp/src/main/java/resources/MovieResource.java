@@ -33,13 +33,14 @@ public class MovieResource {
     @Produces(MediaType.APPLICATION_JSON)
     public void rating (@PathParam("id") long id, @FormParam("rating") int rating){
         log.info("post rating");
+
         service.addRating(id,rating);
     }
 
     @GET
-    @Path("/recommended?limit={limit}")
+    @Path("/recommended")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Movie> recommended(@PathParam("limit") int limit){
+    public List<Movie> recommended(@FormParam("limit") int limit){
         log.info("recommended films");
         return service.recommendedMovies(limit);
     }
