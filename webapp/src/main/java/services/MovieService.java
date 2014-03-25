@@ -1,9 +1,14 @@
 package services;
 
 import db.daologic.MovieDaoLogic;
+import db.daologic.RatingDaoLogic;
 import models.Movie;
+import models.Rating;
+import org.joda.time.DateTime;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,6 +17,7 @@ import java.util.List;
 public class MovieService {
 
     private MovieDaoLogic movieDaoLogic = new MovieDaoLogic();
+    private RatingDaoLogic ratingDaoLogic = new RatingDaoLogic();
 
     public Movie getForRating() {
         return movieDaoLogic.getById(1);
@@ -19,13 +25,18 @@ public class MovieService {
 
     public void addRating(long id, int rating){
         //TODO: call db logic
+       DateTime date = DateTime.now();
+        Rating r = new Rating(1,id, (short) rating, date) ;
+        ratingDaoLogic.insert(r);
     }
 
-    public List<Movie> recommendedMovies() {
+    public List<Movie> recommendedMovies(int limit) {
         List<Movie> movies = new ArrayList<>();
-        movies.add(new Movie(1, "Casper", "url", "imdb id"));
-        movies.add(new Movie(2, "Casper: Revenge", "url", "imdb id"));
-        movies.add(new Movie(3, "Blood Juice", "url", "imdb id"));
+        for (int i=0;i<=limit;i++)
+        {
+            movies.add(movieDaoLogic.getById(i));
+        }
+
         return movies;
     }
 }
