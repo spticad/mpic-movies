@@ -20,7 +20,8 @@ public class MovieService {
     private RatingDaoLogic ratingDaoLogic = new RatingDaoLogic();
 
     public Movie getForRating() {
-        return movieDaoLogic.getById(1);
+        return new Movie(5, "Casper", "pic url", "123");
+//        return movieDaoLogic.getById(1);
     }
 
     public void addRating(long id, int rating){

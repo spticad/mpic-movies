@@ -31,17 +31,16 @@ public class MovieResource {
     @POST
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void rating (@PathParam("id") long id, @FormParam("rating") int rating){
-        log.info("post rating");
-
-        service.addRating(id,rating);
+    public void rating(@PathParam("id") long id, @FormParam("rating") int rating) {
+        log.info("post rating {} for movie with id {} ", rating, id);
+        service.addRating(id, rating);
     }
 
     @GET
     @Path("/recommended")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Movie> recommended(@FormParam("limit") int limit){
-        log.info("recommended films");
+    public List<Movie> recommended(@DefaultValue("3") @QueryParam("limit") int limit) {
+        log.info("recommended films with limit {}", limit);
         return service.recommendedMovies(limit);
     }
 }

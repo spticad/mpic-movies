@@ -2,8 +2,6 @@ package models;
 
 import org.joda.time.DateTime;
 
-import java.sql.Timestamp;
-
 public class Rating {
     private long userId;
     private long movieId;
