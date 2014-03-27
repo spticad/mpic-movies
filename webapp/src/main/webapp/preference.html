@@ -124,8 +124,8 @@
 
 <script type="text/javascript">
     $.get( "http://localhost:8080/api/movies/forRating", function( data ) {
-
-        alert( data);
+        alert(JSON.stringify(data, null, 4));
+        //alert( data.toString());
     });
 </script>
 
