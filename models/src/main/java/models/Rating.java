@@ -17,8 +17,6 @@ public class Rating {
         this.timestamp = timestamp;
     }
 
-
-
     public long getUserId() {
         return userId;
     }

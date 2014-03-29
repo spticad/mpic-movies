@@ -1,4 +1,5 @@
 
+import com.cedarsoftware.util.DeepEquals;
 import db.daologic.MovieDaoLogic;
 import models.Movie;
 import org.dbunit.Assertion;
@@ -33,7 +34,7 @@ public class MovieDaoLogicTest {
     public void testSelectById() {
         Movie actual = dao.getById(1);
         Movie expected = new Movie(1, "Casper", "url", "tt1");
-        Assert.assertEquals(expected, actual);
+        Assert.assertTrue(DeepEquals.deepEquals(expected,actual));
     }
 
     @Test
@@ -41,7 +42,7 @@ public class MovieDaoLogicTest {
         dao.updateImdbId("updated imdbId", 1);
 
         ITable actual = dbInitializer.getActualTable("movies");
-        ITable expected = dbInitializer.readDataSet("after-update-imdbid.xml").getTable("movies");
+        ITable expected = dbInitializer.readDataSet("datasets/after-update-imdbid.xml").getTable("movies");
 
         // Assert actual database table match expected table
         Assertion.assertEquals(expected, actual);
