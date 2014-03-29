@@ -3,6 +3,7 @@ package db.dao;
 import db.mappers.MovieMapper;
 import models.Movie;
 import org.skife.jdbi.v2.sqlobject.Bind;
+import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
@@ -29,8 +30,9 @@ public interface MovieDao {
     @SqlUpdate("update movies set imdb_picture_url = :imdb_picture_url where id=:id")
     void updateImdbPictureUrl(@Bind("id") long id, @Bind("imdb_picture_url") String imdbPictureURL);
 
-    @SqlQuery("insert into movies(title, imdb_id, imdb_picture_url) " +
-            "values (:title, :imdb_id, :imdb_picture_url) returning id")
+    @SqlUpdate("insert into movies(title, imdb_id, imdb_picture_url) " +
+            "values (:title, :imdb_id, :imdb_picture_url)")
+    @GetGeneratedKeys
     long insert(@Bind("title") String title, @Bind("imdb_id") String imdbId,
                 @Bind("imdb_picture_url") String imdbPictureURL);
 

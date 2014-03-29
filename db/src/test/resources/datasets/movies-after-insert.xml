@@ -1,0 +1,6 @@
+<dataset>
+    <movies id="1" title="Casper" imdb_picture_url="url" imdb_id="tt1"/>
+    <movies id="2" title="Casper 2" imdb_picture_url="url 2" imdb_id="tt2"/>
+    <movies id="3" title="Casper 3" imdb_picture_url="url 3" imdb_id="tt3"/>
+    <movies id="4" title="Casper 4" imdb_picture_url="url 4" imdb_id="tt4"/>
+</dataset>

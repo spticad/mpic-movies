@@ -29,7 +29,7 @@ public class UserDaoLogic {
         return user;
     }
 
-    public void updateToken(String token, long id) {
+    public void updateToken(long id, String token) {
         UserDao dao = dbi.open(UserDao.class);
         dao.updateToken(id, token);
         dao.close();

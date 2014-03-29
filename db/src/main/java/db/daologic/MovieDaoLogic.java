@@ -36,15 +36,15 @@ public class MovieDaoLogic {
         return movie;
     }
 
-    public void updateImdbId(String imdbId, long id) {
+    public void updateImdbId(long id, String imdbId) {
         MovieDao dao = dbi.open(MovieDao.class);
-        dao.updateImdbId(imdbId, id);
+        dao.updateImdbId(id, imdbId);
         dao.close();
     }
 
-    public void updateImdbPictureUrl(String imdbPictureURL, long id) {
+    public void updateImdbPictureUrl(long id, String imdbPictureURL) {
         MovieDao dao = dbi.open(MovieDao.class);
-        dao.updateImdbPictureUrl(imdbPictureURL, id);
+        dao.updateImdbPictureUrl(id, imdbPictureURL);
         dao.close();
     }
 

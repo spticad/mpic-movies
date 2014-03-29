@@ -3,6 +3,7 @@ package db.dao;
 import db.mappers.UserMapper;
 import models.User;
 import org.skife.jdbi.v2.sqlobject.Bind;
+import org.skife.jdbi.v2.sqlobject.GetGeneratedKeys;
 import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
@@ -22,8 +23,9 @@ public interface UserDao {
     @SqlUpdate("update users set access_token = :access_token where id = :id")
     void updateToken(@Bind("id") long id, @Bind("access_token") String token);
 
-    @SqlQuery("insert into users(registration_date, g_id, g_name, g_email, g_image, access_token) " +
-            "values(current_timestamp, :g_id, :g_name, :g_email, :g_image, :access_token) returning id")
+    @SqlUpdate("insert into users(registration_date, g_id, g_name, g_email, g_image, access_token) " +
+            "values(current_timestamp, :g_id, :g_name, :g_email, :g_image, :access_token)")
+    @GetGeneratedKeys
     long insert(@Bind("g_id") String googleId, @Bind("g_name") String googleName,
                 @Bind("g_email") String googleEmail, @Bind("g_image") String googleImage,
                 @Bind("access_token") String token);

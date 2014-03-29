@@ -1,4 +1,5 @@
 
+import db.DbiManager;
 import db.daologic.MovieDaoLogic;
 import models.Movie;
 import org.dbunit.Assertion;
@@ -7,8 +8,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by vitaly on 3/26/14.
@@ -37,14 +36,22 @@ public class MovieDaoLogicTest {
     }
 
     @Test
-    public void testInsert() throws Exception {
-        dao.updateImdbId("updated imdbId", 1);
+    public void testUpdateImdbId() throws Exception {
+        dao.updateImdbId(1, "updated imdbId");
 
         ITable actual = dbInitializer.getActualTable("movies");
-        ITable expected = dbInitializer.readDataSet("datasets/after-update-imdbid.xml").getTable("movies");
+        ITable expected = dbInitializer.readDataSet("datasets/movies-after-update-imdbid.xml").getTable("movies");
 
-        // Assert actual database table match expected table
         Assertion.assertEquals(expected, actual);
     }
 
+    @Test
+    public void testInsert() throws Exception {
+        dao.insert("Casper 4", "tt4", "url 4");
+
+        ITable actual = dbInitializer.getActualTable("movies");
+        ITable expected = dbInitializer.readDataSet("datasets/movies-after-insert.xml").getTable("movies");
+
+        Assertion.assertEquals(expected, actual);
+    }
 }
