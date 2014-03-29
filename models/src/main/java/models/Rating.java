@@ -44,4 +44,28 @@ public class Rating {
                 ", timestamp=" + timestamp +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Rating rating1 = (Rating) o;
+
+        if (movieId != rating1.movieId) return false;
+        if (rating != rating1.rating) return false;
+        if (userId != rating1.userId) return false;
+        if (timestamp != null ? !timestamp.equals(rating1.timestamp) : rating1.timestamp != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (userId ^ (userId >>> 32));
+        result = 31 * result + (int) (movieId ^ (movieId >>> 32));
+        result = 31 * result + (int) rating;
+        result = 31 * result + (timestamp != null ? timestamp.hashCode() : 0);
+        return result;
+    }
 }

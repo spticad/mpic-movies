@@ -57,4 +57,25 @@ public class Movie {
                 ", imdbId='" + imdbId + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Movie movie = (Movie) o;
+
+        if (id != movie.id) return false;
+        if (imdbId != null ? !imdbId.equals(movie.imdbId) : movie.imdbId != null) return false;
+        if (imdbPictureURL != null ? !imdbPictureURL.equals(movie.imdbPictureURL) : movie.imdbPictureURL != null)
+            return false;
+        if (title != null ? !title.equals(movie.title) : movie.title != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
 }

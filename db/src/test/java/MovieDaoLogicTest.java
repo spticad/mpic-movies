@@ -1,4 +1,5 @@
 
+import db.DbiManager;
 import db.daologic.MovieDaoLogic;
 import models.Movie;
 import org.dbunit.Assertion;
@@ -17,7 +18,7 @@ public class MovieDaoLogicTest {
 
     private static DbInitializer dbInitializer = new DbInitializer();
 
-    private MovieDaoLogic dao = new MovieDaoLogic();
+    private MovieDaoLogic dao = new MovieDaoLogic(DbiManager.getDbi());
 
     @BeforeClass
     public static void createScheme() {

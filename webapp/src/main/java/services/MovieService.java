@@ -1,5 +1,6 @@
 package services;
 
+import db.DbiManager;
 import db.daologic.MovieDaoLogic;
 import db.daologic.RatingDaoLogic;
 import models.Movie;
@@ -16,8 +17,8 @@ import java.util.List;
  */
 public class MovieService {
 
-    private MovieDaoLogic movieDaoLogic = new MovieDaoLogic();
-    private RatingDaoLogic ratingDaoLogic = new RatingDaoLogic();
+    private MovieDaoLogic movieDaoLogic = new MovieDaoLogic(DbiManager.getDbi());
+    private RatingDaoLogic ratingDaoLogic = new RatingDaoLogic(DbiManager.getDbi());
 
     public Movie getForRating() {
         return new Movie(5, "Casper", "pic url", "123");

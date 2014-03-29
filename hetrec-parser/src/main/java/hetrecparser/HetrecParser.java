@@ -1,5 +1,6 @@
 package hetrecparser;
 
+import db.DbiManager;
 import db.daologic.MovieDaoLogic;
 import db.daologic.RatingDaoLogic;
 import db.daologic.UserDaoLogic;
@@ -54,13 +55,13 @@ public class HetrecParser {
     }
 
     private static long moviesCount() {
-        MovieDaoLogic movieDaoLogic = new MovieDaoLogic();
+        MovieDaoLogic movieDaoLogic = new MovieDaoLogic(DbiManager.getDbi());
         return movieDaoLogic.moviesCount();
     }
 
     private static void insertMovies() {
         log.info("start inserting movies into db");
-        MovieDaoLogic movieDaoLogic = new MovieDaoLogic();
+        MovieDaoLogic movieDaoLogic = new MovieDaoLogic(DbiManager.getDbi());
         int insertCount = 0;
         for(Movie m : movies.values()) {
             long id = movieDaoLogic.insert(m.getTitle(), m.getImdbId(), m.getImdbPictureURL());
@@ -72,7 +73,7 @@ public class HetrecParser {
 
     private static void insertUsers() {
         log.info("start inserting users into db");
-        UserDaoLogic userDaoLogic = new UserDaoLogic();
+        UserDaoLogic userDaoLogic = new UserDaoLogic(DbiManager.getDbi());
         int insertCount = 0;
         for(User u : users.values()) {
             long id = userDaoLogic.insert(u.getGoogleId(), u.getGoogleName(), u.getGoogleEmail(), u.getGoogleImage(), u.getToken());
@@ -84,7 +85,7 @@ public class HetrecParser {
 
     private static void insertRatings() {
         log.info("start inserting ratings");
-        RatingDaoLogic ratingDaoLogic = new RatingDaoLogic();
+        RatingDaoLogic ratingDaoLogic = new RatingDaoLogic(DbiManager.getDbi());
         int insertCount = 0;
         for(Rating r : ratings) {
             User user = users.get(r.getUserId());

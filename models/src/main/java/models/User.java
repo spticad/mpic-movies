@@ -76,4 +76,28 @@ public class User {
     public void setRegistrationDate(DateTime registrationDate) {
         this.registrationDate = registrationDate;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (id != user.id) return false;
+        if (googleEmail != null ? !googleEmail.equals(user.googleEmail) : user.googleEmail != null) return false;
+        if (googleId != null ? !googleId.equals(user.googleId) : user.googleId != null) return false;
+        if (googleImage != null ? !googleImage.equals(user.googleImage) : user.googleImage != null) return false;
+        if (googleName != null ? !googleName.equals(user.googleName) : user.googleName != null) return false;
+        if (registrationDate != null ? !registrationDate.equals(user.registrationDate) : user.registrationDate != null)
+            return false;
+        if (token != null ? !token.equals(user.token) : user.token != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
+    }
 }
