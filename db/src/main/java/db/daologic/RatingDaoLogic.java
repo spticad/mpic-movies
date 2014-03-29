@@ -1,5 +1,6 @@
 package db.daologic;
 
+import db.DbiManager;
 import db.dao.RatingDao;
 import models.Rating;
 import org.skife.jdbi.v2.DBI;
@@ -15,6 +16,13 @@ public class RatingDaoLogic {
 
     public RatingDaoLogic(DBI dbi) {
         this.dbi = dbi;
+    }
+
+    public Rating getByUserId(long userId) {
+        RatingDao dao = DbiManager.getDbi().open(RatingDao.class);
+        Rating rating = dao.getByUserId(userId);
+        dao.close();
+        return rating;
     }
 
     public void insert(Rating rating) {

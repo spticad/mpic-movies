@@ -12,7 +12,6 @@ import org.dbunit.operation.DatabaseOperation;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
 
 /**
@@ -60,7 +59,7 @@ public class DbInitializer {
     }
     
     public void prepareDataset() throws Exception {
-        IDataSet dataSet = readDataSet("dataset.xml");
+        IDataSet dataSet = readDataSet("datasets/dataset.xml");
         cleanlyInsert(dataSet);
     }
 

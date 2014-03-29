@@ -1,5 +1,4 @@
 
-import db.DbiManager;
 import db.daologic.MovieDaoLogic;
 import models.Movie;
 import org.dbunit.Assertion;
@@ -42,7 +41,7 @@ public class MovieDaoLogicTest {
         dao.updateImdbId("updated imdbId", 1);
 
         ITable actual = dbInitializer.getActualTable("movies");
-        ITable expected = dbInitializer.readDataSet("after-update-imdbid.xml").getTable("movies");
+        ITable expected = dbInitializer.readDataSet("datasets/after-update-imdbid.xml").getTable("movies");
 
         // Assert actual database table match expected table
         Assertion.assertEquals(expected, actual);

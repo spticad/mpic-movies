@@ -31,7 +31,7 @@ public class UserDaoLogic {
 
     public void updateToken(String token, long id) {
         UserDao dao = dbi.open(UserDao.class);
-        dao.updateToken(token, id);
+        dao.updateToken(id, token);
         dao.close();
     }
 

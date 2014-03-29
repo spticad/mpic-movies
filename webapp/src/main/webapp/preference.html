@@ -101,7 +101,7 @@
                     </div>
                     <h3 id="ratedvalue">
                         Rate this movie
-                    <h3>
+                    </h3>
                 </div>
                 <div id="rating_1">
                     <input type="hidden" name="vote-id" value="1"/>
@@ -121,6 +121,13 @@
 
 </body>
 </html>
+
+<script type="text/javascript">
+    $.get( "http://localhost:8080/api/movies/forRating", function( data ) {
+        alert(JSON.stringify(data, null, 4));
+        //alert( data.toString());
+    });
+</script>
 
 <script type="text/javascript">
 
@@ -267,3 +274,4 @@
 
 
 </script>
+                                                                                                                                                                                                                                                                                                                                                            
