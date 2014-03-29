@@ -3,8 +3,6 @@ package db.daologic;
 import db.DbiManager;
 import db.dao.UserDao;
 import models.User;
-import org.postgresql.ds.PGSimpleDataSource;
-import org.skife.jdbi.v2.DBI;
 
 /**
  * Created by vitaly on 3/12/14.
@@ -27,7 +25,7 @@ public class UserDaoLogic {
 
     public void updateToken(String token, long id) {
         UserDao dao = DbiManager.getDbi().open(UserDao.class);
-        dao.updateToken(token, id);
+        dao.updateToken(id, token);
         dao.close();
     }
 

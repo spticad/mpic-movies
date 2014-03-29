@@ -20,7 +20,7 @@ public interface UserDao {
     User getByToken(@Bind("access_token") String token);
 
     @SqlUpdate("update users set access_token = :access_token where id = :id")
-    void updateToken(@Bind("access_token") String token, @Bind("id") long id);
+    void updateToken(@Bind("id") long id, @Bind("access_token") String token);
 
     @SqlQuery("insert into users(registration_date, g_id, g_name, g_email, g_image, access_token) " +
             "values(current_timestamp, :g_id, :g_name, :g_email, :g_image, :access_token) returning id")

@@ -11,6 +11,13 @@ import java.sql.Timestamp;
  */
 public class RatingDaoLogic {
 
+    public Rating getByUserId(long userId) {
+        RatingDao dao = DbiManager.getDbi().open(RatingDao.class);
+        Rating rating = dao.getByUserId(userId);
+        dao.close();
+        return rating;
+    }
+
     public void insert(Rating rating) {
         RatingDao dao = DbiManager.getDbi().open(RatingDao.class);
         dao.insert(rating.getUserId(), rating.getMovieId(), rating.getRating(), new Timestamp(rating.getTimestamp().getMillis()));
