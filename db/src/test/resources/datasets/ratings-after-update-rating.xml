@@ -1,0 +1,5 @@
+<dataset>
+    <ratings user_id ="1" movie_id="1" rating = "10" timestamp = "2014-03-30 12:15:11.105"/>
+    <ratings user_id ="1" movie_id="2" rating = "8" timestamp = "2014-03-30 12:17:11.105"/>
+    <ratings user_id ="1" movie_id="3" rating = "2" timestamp = "2014-03-31 12:18:11.105"/>
+ </dataset>

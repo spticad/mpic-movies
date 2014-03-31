@@ -28,13 +28,13 @@ public class DbInitializer {
     private String dbUrl;
     private String dbUserName;
     private String dbPassword;
-
+    private IDatabaseTester databaseTester = null;
 
     public void setUpSchema() {
         try {
             //read config and init DbiManager
             Properties config = new Properties();
-            config.load( Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
+            config.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
 
             dbDriverName = config.getProperty("db.driverClassName");
             dbUrl = config.getProperty("db.url");
@@ -57,7 +57,7 @@ public class DbInitializer {
             throw new RuntimeException("Error during database initialization", ex);
         }
     }
-    
+
     public void prepareDataset() throws Exception {
         IDataSet dataSet = readDataSet("datasets/dataset.xml");
         cleanlyInsert(dataSet);
@@ -67,20 +67,20 @@ public class DbInitializer {
         return new FlatXmlDataSetBuilder().build(new File(Utils.getFilePath(fileName)));
     }
 
-    public ITable getActualTable(String tableName) throws Exception {
-        //TODO: refactor databaseTester initializing
-        IDatabaseTester databaseTester = new JdbcDatabaseTester(
+    public void setUpDBTester() throws ClassNotFoundException {
+        databaseTester = new JdbcDatabaseTester(
                 dbDriverName, dbUrl,
                 dbUserName, dbPassword);
+    }
+
+    public ITable getActualTable(String tableName) throws Exception {
+        setUpDBTester();
         IDataSet databaseDataSet = databaseTester.getConnection().createDataSet();
         return databaseDataSet.getTable(tableName);
     }
 
     private void cleanlyInsert(IDataSet dataSet) throws Exception {
-        //TODO: refactor databaseTester initializing
-        IDatabaseTester databaseTester = new JdbcDatabaseTester(
-                dbDriverName, dbUrl,
-                dbUserName, dbPassword);
+        setUpDBTester();
         databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
         databaseTester.setDataSet(dataSet);
         databaseTester.onSetup();

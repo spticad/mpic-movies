@@ -1,4 +1,3 @@
-
 import db.DbiManager;
 import db.daologic.MovieDaoLogic;
 import models.Movie;
@@ -29,9 +28,23 @@ public class MovieDaoLogicTest {
     }
 
     @Test
+    public void testMoviesCount() throws Exception {
+        long actual = dao.moviesCount();
+        long expected =  dbInitializer.readDataSet("datasets/movies-after-update-imdbid.xml").getTable("movies").getRowCount();
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
     public void testSelectById() {
         Movie actual = dao.getById(1);
         Movie expected = new Movie(1, "Casper", "url", "tt1");
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testSelectByImdbId() {
+        Movie actual = dao.getByImdbId("tt3");
+        Movie expected = new Movie(3, "Casper 3", "url 3", "tt3");
         Assert.assertEquals(expected, actual);
     }
 
@@ -41,6 +54,15 @@ public class MovieDaoLogicTest {
 
         ITable actual = dbInitializer.getActualTable("movies");
         ITable expected = dbInitializer.readDataSet("datasets/movies-after-update-imdbid.xml").getTable("movies");
+        Assertion.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testUpdateImdbPictureUrl() throws Exception {
+        dao.updateImdbPictureUrl(2, "update url");
+
+        ITable actual = dbInitializer.getActualTable("movies");
+        ITable expected = dbInitializer.readDataSet("datasets/movies-after-update-imdbpictureurl.xml").getTable("movies");
 
         Assertion.assertEquals(expected, actual);
     }

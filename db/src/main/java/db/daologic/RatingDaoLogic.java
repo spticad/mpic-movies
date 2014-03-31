@@ -5,8 +5,6 @@ import db.dao.RatingDao;
 import models.Rating;
 import org.skife.jdbi.v2.DBI;
 
-import java.sql.Timestamp;
-
 /**
  * Created by vitaly on 3/22/14.
  */
@@ -25,9 +23,14 @@ public class RatingDaoLogic {
         return rating;
     }
 
-    public void insert(Rating rating) {
+    public void insert(long userId, long movieId, short rating) {
         RatingDao dao = dbi.open(RatingDao.class);
-        dao.insert(rating.getUserId(), rating.getMovieId(), rating.getRating(), new Timestamp(rating.getTimestamp().getMillis()));
+        dao.insert(userId, movieId, rating);
+        dao.close();
+    }
+    public void updateRating(long userId, long movieId, short rating){
+        RatingDao dao = dbi.open(RatingDao.class);
+        dao.updateRating(userId, movieId, rating);
         dao.close();
     }
 }
