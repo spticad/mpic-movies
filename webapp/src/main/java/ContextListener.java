@@ -27,8 +27,8 @@ public class ContextListener implements ServletContextListener {
                     Configuration.DB.getUser(),
                     "");
 
-            log.info("parse dataset: {}", Configuration.PARSE_DATASET);
-            if (Configuration.PARSE_DATASET) {
+            log.info("parse dataset: {}", Configuration.isParseDataset());
+            if (Configuration.isParseDataset()) {
                 HetrecParser.parseHetrecDataset();
             }
         } catch (Exception ex) {

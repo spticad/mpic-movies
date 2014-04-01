@@ -4,34 +4,25 @@ package config;
  * Created by vitaly on 3/16/14.
  */
 public class DbConfig {
-    private String driverClassName;
-    private String url;
-    private String user;
-
-    public DbConfig(String driverClassName, String url, String user) {
-        this.driverClassName = driverClassName;
-        this.url = url;
-        this.user = user;
-    }
 
     public String getDriverClassName() {
-        return driverClassName;
+        return Configuration.get("db.driverClassName");
     }
 
     public String getUrl() {
-        return url;
+        return Configuration.get("db.url");
     }
 
     public String getUser() {
-        return user;
+        return Configuration.get("db.user");
     }
 
     @Override
     public String toString() {
         return "DbConfig{" +
-                "driverClassName='" + driverClassName + '\'' +
-                ", url='" + url + '\'' +
-                ", user='" + user + '\'' +
+                "driverClassName='" + getDriverClassName() + '\'' +
+                ", url='" + getUrl() + '\'' +
+                ", user='" + getUser() + '\'' +
                 '}';
     }
 }

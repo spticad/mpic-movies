@@ -7,31 +7,37 @@ import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.Properties;
 
+import static java.lang.Boolean.parseBoolean;
+
 /**
  * Created by vitaly on 3/16/14.
  */
 public final class Configuration {
     private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    public static final DbConfig DB;
-    public static final GoogleOAuthConfig OAUTH;
-    public static final boolean PARSE_DATASET;
+    private static final Properties config = new Properties();
+
+    public static final DbConfig DB = new DbConfig();
+    public static final GoogleOAuthConfig OAUTH = new GoogleOAuthConfig();
 
     static {
         try {
-            Properties config = new Properties();
             config.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
-
-            DB = new DbConfig(config.getProperty("db.driverClassName"),
-                    config.getProperty("db.url"), config.getProperty("db.user"));
-            OAUTH = new GoogleOAuthConfig(config.getProperty("google.clientId"),
-                    config.getProperty("google.secret"));
-            PARSE_DATASET = Boolean.parseBoolean(config.getProperty("parseDataset"));
         } catch (IOException e) {
             log.error("loading config failed", e);
             throw new RuntimeException("loading config failed", e);
         }
     }
 
-    private Configuration() {}
+    public static boolean isParseDataset() {
+        return parseBoolean(get("parseDataset"));
+    }
+
+    public static String get(String key) {
+        String res = System.getProperty(key);
+        return (res != null) ? res : config.getProperty(key);
+    }
+
+    private Configuration() {
+    }
 }
