@@ -7,9 +7,7 @@ import models.Movie;
 import models.Rating;
 import org.joda.time.DateTime;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,7 +27,7 @@ public class MovieService {
         //TODO: call db logic
        DateTime date = DateTime.now();
         Rating r = new Rating(1,id, (short) rating, date) ;
-        ratingDaoLogic.insert(r);
+        ratingDaoLogic.insert(r.getUserId(), r.getMovieId(), r.getRating());
     }
 
     public List<Movie> recommendedMovies(int limit) {

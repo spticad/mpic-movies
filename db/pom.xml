@@ -67,27 +67,32 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>3.1.1</version>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <changeLogFile>src/main/resources/liquibase/db.changelog.main.xml</changeLogFile>
-                            <driver>org.postgresql.Driver</driver>
-                            <url>jdbc:postgresql://localhost/mpic-movies</url>
-                            <username>postgres</username>
-                        </configuration>
-                        <goals>
-                            <goal>update</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <profiles>
+        <profile>
+            <id>update-db</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <version>3.1.1</version>
+                        <executions>
+                            <execution>
+                                <phase>process-resources</phase>
+                                <configuration>
+                                    <changeLogFile>src/main/resources/liquibase/db.changelog.main.xml</changeLogFile>
+                                    <driver>org.postgresql.Driver</driver>
+                                    <url>jdbc:postgresql://localhost/mpic-movies</url>
+                                    <username>postgres</username>
+                                </configuration>
+                                <goals>
+                                    <goal>update</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

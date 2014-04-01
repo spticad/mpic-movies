@@ -93,7 +93,7 @@ public class HetrecParser {
 
             if(user == null || movie == null) continue;
 
-            ratingDaoLogic.insert(new Rating(user.getId(), movie.getId(), r.getRating(), r.getTimestamp()));
+            ratingDaoLogic.insert(user.getId(), movie.getId(), r.getRating());
             if(++insertCount % 500 == 0) log.info("inserted ratings: {}", insertCount);
         }
         log.info("finish inserting ratings");
