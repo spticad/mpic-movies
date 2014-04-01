@@ -17,6 +17,10 @@ public class DbConfig {
         return Configuration.get("db.user");
     }
 
+    public String getPassword() {
+        return Configuration.get("db.password");
+    }
+
     @Override
     public String toString() {
         return "DbConfig{" +

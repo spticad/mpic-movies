@@ -25,7 +25,7 @@ public class ContextListener implements ServletContextListener {
             DbiManager.setUp(Configuration.DB.getDriverClassName(),
                     Configuration.DB.getUrl(),
                     Configuration.DB.getUser(),
-                    "");
+                    Configuration.DB.getPassword());
 
             log.info("parse dataset: {}", Configuration.isParseDataset());
             if (Configuration.isParseDataset()) {
