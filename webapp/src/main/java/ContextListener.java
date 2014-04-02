@@ -30,13 +30,15 @@ public class ContextListener implements ServletContextListener {
                     DB.getUser(),
                     DB.getPassword());
 
-            SchemaMigrator migrator = new SchemaMigrator(
-                    DB.getDriverClassName(),
-                    DB.getUrl(),
-                    DB.getUser(),
-                    DB.getPassword()
-            );
-            migrator.migrate();
+            if (DB.isSchemaMigrationRequired()) {
+                SchemaMigrator migrator = new SchemaMigrator(
+                        DB.getDriverClassName(),
+                        DB.getUrl(),
+                        DB.getUser(),
+                        DB.getPassword()
+                );
+                migrator.migrate();
+            }
 
             log.info("parse dataset: {}", Configuration.isParseDataset());
             if (Configuration.isParseDataset()) {

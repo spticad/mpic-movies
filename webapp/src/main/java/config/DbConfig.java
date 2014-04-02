@@ -21,6 +21,10 @@ public class DbConfig {
         return Configuration.get("db.password");
     }
 
+    public boolean isSchemaMigrationRequired() {
+        return Boolean.parseBoolean(Configuration.get("db.migrate"));
+    }
+
     @Override
     public String toString() {
         return "DbConfig{" +
