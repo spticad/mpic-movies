@@ -1,5 +1,6 @@
 import config.Configuration;
 import db.DbiManager;
+import db.SchemaMigrator;
 import hetrecparser.HetrecParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.lang.invoke.MethodHandles;
+
+import static config.Configuration.DB;
 
 /**
  * Created by vitaly on 3/16/14.
@@ -19,13 +22,21 @@ public class ContextListener implements ServletContextListener {
         log.info("context initialized");
 
         try {
-            log.info(Configuration.DB.toString());
+            log.info(DB.toString());
             log.info(Configuration.OAUTH.toString());
 
-            DbiManager.setUp(Configuration.DB.getDriverClassName(),
-                    Configuration.DB.getUrl(),
-                    Configuration.DB.getUser(),
-                    Configuration.DB.getPassword());
+            DbiManager.setUp(DB.getDriverClassName(),
+                    DB.getUrl(),
+                    DB.getUser(),
+                    DB.getPassword());
+
+            SchemaMigrator migrator = new SchemaMigrator(
+                    DB.getDriverClassName(),
+                    DB.getUrl(),
+                    DB.getUser(),
+                    DB.getPassword()
+            );
+            migrator.migrate();
 
             log.info("parse dataset: {}", Configuration.isParseDataset());
             if (Configuration.isParseDataset()) {

@@ -1,7 +1,6 @@
 import db.DbiManager;
-import liquibase.Liquibase;
-import liquibase.database.jvm.HsqlConnection;
-import liquibase.resource.FileSystemResourceAccessor;
+import db.SchemaMigrator;
+import db.util.ClasspathUtil;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
 import org.dbunit.dataset.IDataSet;
@@ -10,8 +9,6 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.operation.DatabaseOperation;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.Properties;
 
 /**
@@ -43,16 +40,13 @@ public class DbInitializer {
 
             DbiManager.setUp(dbDriverName, dbUrl, dbUserName, "");
 
-            //setup h2 schema
-            Class.forName(dbDriverName);
-            Connection holdingConnection = DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
-
-            HsqlConnection hsconn = new HsqlConnection(holdingConnection);
-            String pathToChangelog = Utils.getFilePath(CHANGE_LOG);
-            Liquibase liquibase = new Liquibase(pathToChangelog, new FileSystemResourceAccessor(), hsconn);
-            liquibase.dropAll();
-            liquibase.update("");
-            hsconn.close();
+            SchemaMigrator migrator = new SchemaMigrator(
+                    dbDriverName,
+                    dbUrl,
+                   dbUserName,
+                    dbPassword
+            );
+            migrator.migrate();
         } catch (Exception ex) {
             throw new RuntimeException("Error during database initialization", ex);
         }
@@ -64,7 +58,7 @@ public class DbInitializer {
     }
 
     public IDataSet readDataSet(String fileName) throws Exception {
-        return new FlatXmlDataSetBuilder().build(new File(Utils.getFilePath(fileName)));
+        return new FlatXmlDataSetBuilder().build(new File(ClasspathUtil.getFilePath(fileName)));
     }
 
     public void setUpDBTester() throws ClassNotFoundException {
