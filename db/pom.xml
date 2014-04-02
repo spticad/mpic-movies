@@ -16,7 +16,7 @@
 
     <properties>
         <db.url>jdbc:postgresql://localhost/mpic-movies</db.url>
-        <db.username>postgres</db.username>
+        <db.user>postgres</db.user>
         <db.password></db.password>
     </properties>
 
@@ -89,7 +89,7 @@
                                     <changeLogFile>src/main/resources/liquibase/db.changelog.main.xml</changeLogFile>
                                     <driver>org.postgresql.Driver</driver>
                                     <url>${db.url}</url>
-                                    <username>${db.username}</username>
+                                    <username>${db.user}</username>
                                     <password>${db.password}</password>
                                 </configuration>
                                 <goals>
