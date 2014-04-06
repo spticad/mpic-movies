@@ -25,6 +25,7 @@ public class DbInitializer {
     private String dbUrl;
     private String dbUserName;
     private String dbPassword;
+    private String dbSchemaName;
     private IDatabaseTester databaseTester = null;
 
     public void setUpSchema() {
@@ -37,16 +38,18 @@ public class DbInitializer {
             dbUrl = config.getProperty("db.url");
             dbUserName = config.getProperty("db.user");
             dbPassword = config.getProperty("db.password");
+            dbSchemaName = config.getProperty("db.schemaName");
 
             DbiManager.setUp(dbDriverName, dbUrl, dbUserName, "");
 
             SchemaMigrator migrator = new SchemaMigrator(
                     dbDriverName,
                     dbUrl,
-                   dbUserName,
+                    dbUserName,
                     dbPassword
             );
             migrator.migrate();
+            setUpDBTester();
         } catch (Exception ex) {
             throw new RuntimeException("Error during database initialization", ex);
         }
@@ -64,17 +67,15 @@ public class DbInitializer {
     public void setUpDBTester() throws ClassNotFoundException {
         databaseTester = new JdbcDatabaseTester(
                 dbDriverName, dbUrl,
-                dbUserName, dbPassword);
+                dbUserName, dbPassword, dbSchemaName);
     }
 
     public ITable getActualTable(String tableName) throws Exception {
-        setUpDBTester();
         IDataSet databaseDataSet = databaseTester.getConnection().createDataSet();
         return databaseDataSet.getTable(tableName);
     }
 
     private void cleanlyInsert(IDataSet dataSet) throws Exception {
-        setUpDBTester();
         databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
         databaseTester.setDataSet(dataSet);
         databaseTester.onSetup();

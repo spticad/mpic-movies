@@ -30,7 +30,7 @@ public class UserDaoLogicTest {
     }
 
     @Test
-    public void testSelectById() {
+    public void testSelectByGoogleId() {
         User actual = dao.getByGoogleId("g1");
         User expected = new User(1, "g1", "gName1", "gName1@gmail.com", "gImage1", "token1", new DateTime(2014, 03, 25, 22, 13, 11));
         Assert.assertEquals(expected, actual);
@@ -43,7 +43,6 @@ public class UserDaoLogicTest {
         Assert.assertEquals(expected, actual);
     }
 
-    //Ошибка запроса
     @Test
     public void testUpdateToken() throws Exception {
         dao.updateToken(2, "update token");
@@ -52,14 +51,12 @@ public class UserDaoLogicTest {
         Assertion.assertEquals(expected, actual);
     }
 
-    //Ошибка запроса + добавить проверку
     @Test
     public void testInsert() throws Exception {
-        dao.insert("g4", "gName4", "gName4@gmail.com", "gImage4", "token4");
+        dao.insert("g4", "gName4", "gName4@gmail.com", "gImage4", "token4", new DateTime(2014, 3, 31, 22, 13, 11, 0));
         ITable actual = dbInitializer.getActualTable("users");
         ITable expected = dbInitializer.readDataSet("datasets/users-after-insert.xml").getTable("users");
-        String [] ignore = {"registration_date"};
-        Assertion.assertEqualsIgnoreCols(expected, actual, ignore);
+        Assertion.assertEquals(expected, actual);
 
     }
 

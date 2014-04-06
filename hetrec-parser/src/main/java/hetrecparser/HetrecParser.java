@@ -11,7 +11,9 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.invoke.MethodHandles;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -76,7 +78,7 @@ public class HetrecParser {
         UserDaoLogic userDaoLogic = new UserDaoLogic(DbiManager.getDbi());
         int insertCount = 0;
         for(User u : users.values()) {
-            long id = userDaoLogic.insert(u.getGoogleId(), u.getGoogleName(), u.getGoogleEmail(), u.getGoogleImage(), u.getToken());
+            long id = userDaoLogic.insert(u.getGoogleId(), u.getGoogleName(), u.getGoogleEmail(), u.getGoogleImage(), u.getToken(), DateTime.now());
             u.setId(id);
             if(++insertCount % 500 == 0) log.info("inserted users: {}", insertCount);
         }
@@ -93,7 +95,7 @@ public class HetrecParser {
 
             if(user == null || movie == null) continue;
 
-            ratingDaoLogic.insert(user.getId(), movie.getId(), r.getRating());
+            ratingDaoLogic.insert(user.getId(), movie.getId(), r.getRating(), r.getTimestamp());
             if(++insertCount % 500 == 0) log.info("inserted ratings: {}", insertCount);
         }
         log.info("finish inserting ratings");

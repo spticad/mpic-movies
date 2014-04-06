@@ -31,7 +31,7 @@ public class MovieResource {
     @POST
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public void rating(@PathParam("id") long id, @FormParam("rating") int rating) {
+    public void rating(@PathParam("id") long id, @FormParam("rating") short rating) {
         log.info("post rating {} for movie with id {} ", rating, id);
         service.addRating(id, rating);
     }

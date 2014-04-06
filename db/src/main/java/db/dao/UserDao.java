@@ -8,6 +8,8 @@ import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 
+import java.sql.Timestamp;
+
 /**
  * Created by vitaly on 3/12/14.
  */
@@ -24,11 +26,11 @@ public interface UserDao {
     void updateToken(@Bind("id") long id, @Bind("access_token") String token);
 
     @SqlUpdate("insert into users(registration_date, g_id, g_name, g_email, g_image, access_token) " +
-            "values(current_timestamp, :g_id, :g_name, :g_email, :g_image, :access_token)")
+            "values(:registration_date, :g_id, :g_name, :g_email, :g_image, :access_token)")
     @GetGeneratedKeys
     long insert(@Bind("g_id") String googleId, @Bind("g_name") String googleName,
                 @Bind("g_email") String googleEmail, @Bind("g_image") String googleImage,
-                @Bind("access_token") String token);
+                @Bind("access_token") String token, @Bind("registration_date") Timestamp registrationDate);
 
     void close();
 }

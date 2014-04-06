@@ -1,10 +1,10 @@
 <dataset>
-    <users id ="1" registration_date = "2014-03-25 22:13:11"
+    <users id ="1" registration_date = "2014-03-25 22:13:11.0"
            g_id = "g1" g_name = "gName1" g_email = "gName1@gmail.com" g_image = "gImage1" access_token = "token1"/>
-    <users id ="2" registration_date = "2014-03-26 22:13:11"
+    <users id ="2" registration_date = "2014-03-26 22:13:11.0"
            g_id = "g2" g_name = "gName2" g_email = "gName2@gmail.com" g_image = "gImage2" access_token = "token2"/>
-    <users id ="3" registration_date = "2014-03-27 22:13:11"
+    <users id ="3" registration_date = "2014-03-27 22:13:11.0"
            g_id = "g3" g_name = "gName3" g_email = "gName3@gmail.com" g_image = "gImage3" access_token = "token3"/>
-    <users id ="4" registration_date = "2014-03-31 22:13:11"
+    <users id ="4" registration_date = "2014-03-31 22:13:11.0"
            g_id = "g4" g_name = "gName4" g_email = "gName4@gmail.com" g_image = "gImage4" access_token = "token4"/>
 </dataset>

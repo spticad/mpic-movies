@@ -4,7 +4,6 @@ import db.DbiManager;
 import db.daologic.MovieDaoLogic;
 import db.daologic.RatingDaoLogic;
 import models.Movie;
-import models.Rating;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
@@ -23,17 +22,14 @@ public class MovieService {
 //        return movieDaoLogic.getById(1);
     }
 
-    public void addRating(long id, int rating){
+    public void addRating(long movieId, short rating) {
         //TODO: call db logic
-       DateTime date = DateTime.now();
-        Rating r = new Rating(1,id, (short) rating, date) ;
-        ratingDaoLogic.insert(r.getUserId(), r.getMovieId(), r.getRating());
+        ratingDaoLogic.insert(1, movieId, rating, DateTime.now());
     }
 
     public List<Movie> recommendedMovies(int limit) {
         List<Movie> movies = new ArrayList<>();
-        for (int i=0;i<=limit;i++)
-        {
+        for (int i = 0; i <= limit; i++) {
             movies.add(movieDaoLogic.getById(i));
         }
 

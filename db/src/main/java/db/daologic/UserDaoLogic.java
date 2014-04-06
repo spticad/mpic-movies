@@ -2,7 +2,10 @@ package db.daologic;
 
 import db.dao.UserDao;
 import models.User;
+import org.joda.time.DateTime;
 import org.skife.jdbi.v2.DBI;
+
+import java.sql.Timestamp;
 
 /**
  * Created by vitaly on 3/12/14.
@@ -35,9 +38,9 @@ public class UserDaoLogic {
         dao.close();
     }
 
-    public long insert(String googleId, String googleName, String googleEmail, String googleImage, String token) {
+    public long insert(String googleId, String googleName, String googleEmail, String googleImage, String token, DateTime registrationDate) {
         UserDao dao = dbi.open(UserDao.class);
-        long id = dao.insert(googleId, googleName, googleEmail, googleImage, token);
+        long id = dao.insert(googleId, googleName, googleEmail, googleImage, token, new Timestamp(registrationDate.getMillis()));
         dao.close();
         return id;
     }
