@@ -1,12 +1,15 @@
 package resources;
 
 import models.Movie;
+import models.Rating;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import services.MovieService;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 
@@ -18,7 +21,8 @@ public class MovieResource {
 
     private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    MovieService service = new MovieService();
+    @Inject
+    MovieService service;
 
     @GET
     @Path("/forRating")
@@ -29,18 +33,19 @@ public class MovieResource {
     }
 
     @POST
-    @Path("{id}")
+    @Path("{id}/rate")
     @Produces(MediaType.APPLICATION_JSON)
-    public void rating(@PathParam("id") long id, @FormParam("rating") short rating) {
-        log.info("post rating {} for movie with id {} ", rating, id);
-        service.addRating(id, rating);
+    public Response rate(@PathParam("id") long movieId, @FormParam("rating") short rating) {
+        log.info("post rating {} for movie with id {} ", rating, movieId);
+        Rating r = service.addRating(movieId, rating);
+        return Response.status(Response.Status.CREATED).entity(r).build();
     }
 
     @GET
     @Path("/recommended")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Movie> recommended(@DefaultValue("3") @QueryParam("limit") int limit) {
+    public List<Movie> getRecommended(@DefaultValue("3") @QueryParam("limit") int limit) {
         log.info("recommended films with limit {}", limit);
-        return service.recommendedMovies(limit);
+        return service.getRecommended(limit);
     }
 }

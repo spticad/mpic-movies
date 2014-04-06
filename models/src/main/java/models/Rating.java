@@ -21,16 +21,32 @@ public class Rating {
         return userId;
     }
 
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
     public long getMovieId() {
         return movieId;
+    }
+
+    public void setMovieId(long movieId) {
+        this.movieId = movieId;
     }
 
     public short getRating() {
         return rating;
     }
 
+    public void setRating(short rating) {
+        this.rating = rating;
+    }
+
     public DateTime getTimestamp() {
         return timestamp;
+    }
+
+    public void setTimestamp(DateTime timestamp) {
+        this.timestamp = timestamp;
     }
 
     @Override
