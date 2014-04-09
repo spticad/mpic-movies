@@ -3,4 +3,6 @@
     <movies id="2" title="Casper 2" imdb_picture_url="url 2" imdb_id="tt2"/>
     <movies id="3" title="Casper 3" imdb_picture_url="url 3" imdb_id="tt3"/>
     <movies id="4" title="Casper 4" imdb_picture_url="url 4" imdb_id="tt4"/>
+    <movies id="5" title="Casper 5" imdb_picture_url="url 5" imdb_id="tt5"/>
+    <movies id="6" title="Casper 6" imdb_picture_url="url 6" imdb_id="tt6"/>
 </dataset>

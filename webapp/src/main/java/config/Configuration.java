@@ -38,6 +38,10 @@ public final class Configuration {
         return (res != null) ? res : config.getProperty(key);
     }
 
+    public static int getMoviesCount(){
+        return Integer.parseInt(get("topMoviesCount"));
+    }
+
     private Configuration() {
     }
 }

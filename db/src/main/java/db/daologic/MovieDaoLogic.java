@@ -4,6 +4,8 @@ import db.dao.MovieDao;
 import models.Movie;
 import org.skife.jdbi.v2.DBI;
 
+import java.util.List;
+
 /**
  * Created by Alex on 15/03/14.
  */
@@ -53,6 +55,13 @@ public class MovieDaoLogic {
         long id = dao.insert(title, imdbId, ImdbPictureURL);
         dao.close();
         return id;
+    }
+
+    public List <Movie> getTopMovies (int topMoviesCount){
+        MovieDao dao = dbi.open(MovieDao.class);
+        List<Movie> movies = dao.getTopMovies(topMoviesCount);
+        dao.close();
+        return movies;
     }
 }
 

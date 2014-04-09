@@ -8,6 +8,8 @@ import org.skife.jdbi.v2.sqlobject.SqlQuery;
 import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 
+import java.util.List;
+
 /**
  * Created by Alex on 15/03/14.
  */
@@ -35,6 +37,12 @@ public interface MovieDao {
     @GetGeneratedKeys
     long insert(@Bind("title") String title, @Bind("imdb_id") String imdbId,
                 @Bind("imdb_picture_url") String imdbPictureURL);
+    @SqlQuery("select * from movies, (select movie_id, count(*) as c from ratings " +
+            "group by movie_id order by c desc limit :topMoviesCount) r where movies.id = r.movie_id " +
+            "order by c desc")
+    @Mapper(MovieMapper.class)
+    List<Movie> getTopMovies (@Bind("topMoviesCount") int topMoviesCount);
+
 
     void close();
 }

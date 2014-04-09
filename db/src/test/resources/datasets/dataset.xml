@@ -2,6 +2,8 @@
     <movies id="1" title="Casper" imdb_picture_url="url" imdb_id="tt1"/>
     <movies id="2" title="Casper 2" imdb_picture_url="url 2" imdb_id="tt2"/>
     <movies id="3" title="Casper 3" imdb_picture_url="url 3" imdb_id="tt3"/>
+    <movies id="4" title="Casper 4" imdb_picture_url="url 4" imdb_id="tt4"/>
+    <movies id="5" title="Casper 5" imdb_picture_url="url 5" imdb_id="tt5"/>
 
     <users id ="1" registration_date = "2014-03-25 22:13:11.0"
            g_id = "g1" g_name = "gName1" g_email = "gName1@gmail.com" g_image = "gImage1" access_token = "token1"/>
@@ -10,7 +12,12 @@
     <users id ="3" registration_date = "2014-03-27 22:13:11.0"
            g_id = "g3" g_name = "gName3" g_email = "gName3@gmail.com" g_image = "gImage3" access_token = "token3"/>
 
-    <ratings user_id ="1" movie_id="1" rating = "10" timestamp = "2014-03-30 12:15:11.105"/>
     <ratings user_id ="1" movie_id="2" rating = "8" timestamp = "2014-03-30 12:17:11.105"/>
     <ratings user_id ="1" movie_id="3" rating = "5" timestamp = "2014-03-30 12:18:11.105"/>
+    <ratings user_id ="1" movie_id="4" rating = "10" timestamp = "2014-03-30 12:15:11.105"/>
+    <ratings user_id ="1" movie_id="5" rating = "8" timestamp = "2014-03-30 12:17:11.105"/>
+    <ratings user_id ="2" movie_id="1" rating = "10" timestamp = "2014-03-30 12:15:11.105"/>
+    <ratings user_id ="2" movie_id="4" rating = "10" timestamp = "2014-03-30 12:15:11.105"/>
+    <ratings user_id ="3" movie_id="1" rating = "10" timestamp = "2014-03-30 12:15:11.105"/>
+    <ratings user_id ="3" movie_id="4" rating = "10" timestamp = "2014-03-30 12:15:11.105"/>
 </dataset>
