@@ -6,6 +6,9 @@ svalue[2] = defaultValue;
 $(".rateit").bind('rated', function () {
     $("#ratedvalue" + $(this).attr('number')).html($(this).rateit('value') + " of 10");
     svalue[parseInt($(this).attr('number')) - 1] = $(this).rateit('value') + " of 10";
+    //TODO: call post rating api
+
+    //TODO: call recommended api with limit 1, get info about film by imdbid and fill movie data
 });
 
 $(".rateit").bind('over', function (event, value) {
@@ -52,11 +55,15 @@ function clearBlurEffect() {
     $("#movie1").removeAttr("highblur");
     $("#movie2").removeAttr("highblur");
     $("#movie3").removeAttr("highblur");
-
-
 }
 
 $(".next").click(function () {
+    //TODO: call get recommended movies api
+    //TODO: get imbd info for this movies
+    //TODO: fill movies data
+
+    //TODO: call this 3 actions at the beginning of the script
+
     $("#ratedvalue1").fadeOut('fast');
     $("#ratedvalue2").fadeOut('fast');
     $("#ratedvalue3").fadeOut('fast');
@@ -122,6 +129,8 @@ $(".watched").click(function () {
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+
 
 var movies = {
     '1': {

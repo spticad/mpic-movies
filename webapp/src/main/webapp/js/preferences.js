@@ -8,6 +8,11 @@ var svalue = defaultValue;
 $(".rateit").bind('rated', function () {
     $("#ratedvalue").html($(this).rateit('value') + " of 10");
     svalue = $(this).rateit('value') + " of 10";
+    //TODO: call post rating api
+
+    //TODO: check if number of films is greater than 10 - than redirect to suggestions.html
+
+    //TODO: call forRating api, get info about film by imdbid
 });
 
 $(".rateit").bind('over', function (event, value) {
@@ -27,6 +32,8 @@ $(".rateit").mouseleave(function () {
 var moveUp = false;
 var animationFinished = true;
 $(".next").click(function () {
+    //TODO: call forRating api, get info about film by imdbid
+
     if (animationFinished) {
         animationFinished = false;
         var id = getRandomInt(1, 7);
@@ -77,6 +84,8 @@ function fillMovieData(movie) {
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+//TODO: call forRating api, get info about film by imdbid
 
 var movies = {
     '1': {
