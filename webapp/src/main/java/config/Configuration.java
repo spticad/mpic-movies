@@ -8,6 +8,7 @@ import java.lang.invoke.MethodHandles;
 import java.util.Properties;
 
 import static java.lang.Boolean.parseBoolean;
+import static java.lang.Integer.parseInt;
 
 /**
  * Created by vitaly on 3/16/14.
@@ -32,6 +33,8 @@ public final class Configuration {
     public static boolean isParseDataset() {
         return parseBoolean(get("parseDataset"));
     }
+
+    public static int getPopularFilmsCount() { return parseInt(get("popularFilmsCount")); }
 
     public static String get(String key) {
         String res = System.getProperty(key);

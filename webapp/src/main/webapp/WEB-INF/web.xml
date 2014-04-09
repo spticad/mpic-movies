@@ -17,7 +17,5 @@
         <servlet-name>API Servlet</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>preferences.html</welcome-file>
-    </welcome-file-list>
+
 </web-app>

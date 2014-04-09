@@ -1,5 +1,6 @@
 package services;
 
+import algo.PreferencesAlgo;
 import db.DbiManager;
 import db.daologic.MovieDaoLogic;
 import db.daologic.RatingDaoLogic;
@@ -17,10 +18,16 @@ public class MovieService {
 
     private MovieDaoLogic movieDaoLogic = new MovieDaoLogic(DbiManager.getDbi());
     private RatingDaoLogic ratingDaoLogic = new RatingDaoLogic(DbiManager.getDbi());
+    private PreferencesAlgo preferencesAlgo = new PreferencesAlgo();
 
     public Movie getForRating() {
-        return new Movie(5, "Casper", "pic url", "123");
-//        return movieDaoLogic.getById(1);
+        //TODO: get popular movies
+        //TODO: cache popular movies, maybe during context initialization
+        List<Movie> popular = null;
+        //TODO: get watched movies (add method for getting rated movies by user with specified id)
+        List<Movie> watched = null;
+
+        return preferencesAlgo.getForRating(popular, watched);
     }
 
     public Rating addRating(long movieId, short rating) {
