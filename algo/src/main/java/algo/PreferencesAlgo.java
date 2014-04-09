@@ -10,6 +10,7 @@ import java.util.List;
 public class PreferencesAlgo {
 
     public Movie getForRating(List<Movie> candidates, List<Movie> watched) {
+        //TODO: get random movie by from non watched candidates
         return null;
     }
 }

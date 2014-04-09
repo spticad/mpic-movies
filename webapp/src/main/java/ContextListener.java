@@ -37,7 +37,8 @@ public class ContextListener implements ServletContextListener {
                         DB.getUser(),
                         DB.getPassword()
                 );
-                migrator.migrate();
+                //migrate without dropping schema and data
+                migrator.migrate(false);
             }
 
             log.info("parse dataset: {}", Configuration.isParseDataset());

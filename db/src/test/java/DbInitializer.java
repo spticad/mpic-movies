@@ -48,7 +48,8 @@ public class DbInitializer {
                     dbUserName,
                     dbPassword
             );
-            migrator.migrate();
+            //migrate with dropping schema and data
+            migrator.migrate(true);
             setUpDBTester();
         } catch (Exception ex) {
             throw new RuntimeException("Error during database initialization", ex);

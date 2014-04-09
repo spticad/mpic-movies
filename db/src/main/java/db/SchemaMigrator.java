@@ -32,14 +32,13 @@ public class SchemaMigrator {
         this.password = password;
     }
 
-    public void migrate() throws ClassNotFoundException, SQLException, LiquibaseException {
+    public void migrate(boolean dropAll) throws ClassNotFoundException, SQLException, LiquibaseException {
         logger.info("Migrating the database " + url + " ... ");
-        //setup h2 schema
         Class.forName(driverClassName);
         Connection holdingConnection = DriverManager.getConnection(url, user, password);
         JdbcConnection jdbcconn = new JdbcConnection(holdingConnection);
         Liquibase liquibase = new Liquibase(CHANGE_LOG, new ClassLoaderResourceAccessor(), jdbcconn);
-        liquibase.dropAll();
+        if(dropAll) liquibase.dropAll();
         liquibase.update("");
         jdbcconn.close();
     }

@@ -21,7 +21,7 @@ public class RatingDaoLogic {
     }
 
     public List<Rating> getByUserId(long userId) {
-        RatingDao dao = DbiManager.getDbi().open(RatingDao.class);
+        RatingDao dao = dbi.open(RatingDao.class);
         List<Rating> ratings = dao.getByUserId(userId);
         dao.close();
         return ratings;
