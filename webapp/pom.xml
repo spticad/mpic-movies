@@ -31,6 +31,11 @@
         </dependency>
         <dependency>
             <groupId>mpic-movies</groupId>
+            <artifactId>algo</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mpic-movies</groupId>
             <artifactId>hetrec-parser</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
