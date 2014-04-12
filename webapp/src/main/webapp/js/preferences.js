@@ -1,18 +1,27 @@
-$.get("http://localhost:8080/api/movies/forRating", function (data) {
-    console.log(JSON.stringify(data, null, 4));
-});
+
 
 
 var defaultValue = "Rate this movie";
 var svalue = defaultValue;
+var movieId=1;
+var ratedMovies=0;
 $(".rateit").bind('rated', function () {
     $("#ratedvalue").html($(this).rateit('value') + " of 10");
-    svalue = $(this).rateit('value') + " of 10";
+   // svalue = $(this).rateit('value') + " of 10";
+    svalue = $(this).rateit('value');
     //TODO: call post rating api
+    postRating(movieId,svalue);
+    ratedMovies+=1;
 
     //TODO: check if number of films is greater than 10 - than redirect to suggestions.html
+    if (ratedMovies>=10){
+       alert("You are already rated 10 films");
+        window.location.replace("suggestions.html");
+    }
+    else{
+        //TODO: call forRating api, get info about film by imdbid - maybe we need to call new film after click on the next button?
+    }
 
-    //TODO: call forRating api, get info about film by imdbid
 });
 
 $(".rateit").bind('over', function (event, value) {
@@ -30,6 +39,7 @@ $(".rateit").mouseleave(function () {
 
 
 var moveUp = false;
+var picUrl="";
 var animationFinished = true;
 $(".next").click(function () {
     //TODO: call forRating api, get info about film by imdbid
@@ -40,24 +50,30 @@ $(".next").click(function () {
         var movie = movies[id];
 
         if (!moveUp) {
-            $("#poster2").attr("src", "images/" + id + ".jpg");
+            getMovie();
+           // $("#poster2").attr("src", "images/" + id + ".jpg");
+            $("#poster2").attr("src", picUrl);
             $("#poster").animate({
                 marginTop: -335
             }, 1500, function () {
                 moveUp = true;
                 animationFinished = true;
-                fillMovieData(movie);
+                //fillMovieData(movie);
+
                 $("#info").fadeIn('fast');
             });
         }
         else {
-            $("#poster").attr("src", "images/" + id + ".jpg");
+            getMovie();
+            //$("#poster").attr("src", "images/" + id + ".jpg");
+            $("#poster").attr("src", picUrl);
             $("#poster").animate({
                 marginTop: 0
             }, 1500, function () {
                 moveUp = false;
                 animationFinished = true;
-                fillMovieData(movie);
+              // fillMovieData(movie);
+
                 $("#info").fadeIn('fast');
             });
         }
@@ -73,20 +89,37 @@ $(".next").click(function () {
 });
 
 function fillMovieData(movie) {
-    $("#title").html(movie.title);
-    $("#genre").html(movie.genre);
-    $("#description").html(movie.description);
-    $("#director").html(movie.director);
-    $("#year").html(movie.year);
-    $("#stars").html(movie.stars);
+
+   // $("#title").html(movie.title);
+    //$("#genre").html(movie.genre);
+   // $("#description").html(movie.description);
+   // $("#director").html(movie.director);
+   // $("#year").html(movie.year);
+   // $("#stars").html(movie.stars);
 }
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-//TODO: call forRating api, get info about film by imdbid
 
+//TODO: call forRating api, get info about film by imdbid
+function getMovie (){
+    $.get("http://localhost:8080/api/movies/forRating", function (data) {
+
+        $("#title").html(data.title);
+        alert(data.imdb);
+        picUrl=data.imdb_pic.toString();
+    });
+}
+function postRating (idMovie,rating){
+
+    $.post ("http://localhost:8080/api/"+idMovie+"/rate",
+        {
+            rating: rating
+        }
+    );
+}
 var movies = {
     '1': {
         'title': 'The Social Network',
@@ -140,8 +173,7 @@ var movies = {
         'title': 'Dallas Buyers Club',
         'genre': 'Biography · Drama · History',
         'year': '2013',
-        'description': 'In 1985 Dallas, electrician and hustler Ron Woodroof works around the system to help AIDS patients get the medication they need after he is himself diagnosed with the disease.',
-        'director': 'Jean-Marc Vallée',
-        'stars': ' Matthew McConaughey, Jennifer Garner, Jared Leto'
-    }
-}
+        'description': 'In 1985 Dallas, electrician and hustler Ron Woodroof works around ',
+        'director': 'Peter Weir',
+        'stars': 'Jim Carrey, Ed Harris, Laura Linney '
+    }}
