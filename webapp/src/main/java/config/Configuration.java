@@ -34,7 +34,7 @@ public final class Configuration {
         return parseBoolean(get("parseDataset"));
     }
 
-    public static int getPopularFilmsCount() { return parseInt(get("popularFilmsCount")); }
+    public static int getPopularMoviesCount() { return parseInt(get("popularMoviesCount")); }
 
     public static String get(String key) {
         String res = System.getProperty(key);

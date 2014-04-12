@@ -8,10 +8,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Created by vitaly on 3/26/14.
@@ -19,8 +17,9 @@ import java.util.Properties;
 public class MovieDaoLogicTest {
 
     private static DbInitializer dbInitializer = new DbInitializer();
-    private int topMoviesCount;
     private MovieDaoLogic dao = new MovieDaoLogic(DbiManager.getDbi());
+
+    private static final int POPULAR_MOVIES_COUNT = 2;
 
 
     @BeforeClass
@@ -85,11 +84,8 @@ public class MovieDaoLogicTest {
 
     @Test
     public void testGetTopMovies() throws Exception {
-        Properties config = new Properties();
-        config.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
-        topMoviesCount = Integer.parseInt(config.getProperty("topMoviesCount"));
+        List<Movie> actual = dao.getTopMovies(POPULAR_MOVIES_COUNT);
 
-        List<Movie> actual = dao.getTopMovies(topMoviesCount);
         List<Movie> expected = new ArrayList() {{
             add(new Movie(4, "Casper 4", "url 4", "tt4"));
             add(new Movie(1, "Casper", "url", "tt1"));
