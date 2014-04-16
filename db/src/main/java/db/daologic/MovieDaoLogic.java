@@ -63,6 +63,13 @@ public class MovieDaoLogic {
         dao.close();
         return movies;
     }
+
+    public List<Movie> getWatchedMovies(long userId) {
+        MovieDao dao = dbi.open(MovieDao.class);
+        List<Movie> movies = dao.getWatchedMovies(userId);
+        dao.close();
+        return movies;
+    }
 }
 
 

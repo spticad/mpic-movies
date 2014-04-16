@@ -12,13 +12,7 @@ import java.util.Random;
 public class PreferencesAlgo {
 
     public Movie getForRating(List<Movie> candidates, List<Movie> watched) {
-        List<Movie> forRating = getUnratedMovies(candidates, watched);
-        Random random = new Random();
-        int randomNum = random.nextInt(candidates.size());
-        return forRating.get(randomNum);
-    }
-
-    public List<Movie> getUnratedMovies(List<Movie> candidates, List<Movie> watched) {
-        return (List<Movie>) CollectionUtils.disjunction(candidates, watched);
+        List<Movie> forRating = (List<Movie>) CollectionUtils.subtract(candidates, watched);
+        return forRating.get(new Random().nextInt(forRating.size()));
     }
 }

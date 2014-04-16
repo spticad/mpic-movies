@@ -27,8 +27,6 @@ public class RatedMovie implements Comparable<RatedMovie> {
     }
 
     public int compareTo(RatedMovie otherMovie) {
-
-       return (int)(otherMovie.getMovieRating() - this.movieRating)*10;
-
+        return (int) (otherMovie.getMovieRating() - this.movieRating) * 10;
     }
 }

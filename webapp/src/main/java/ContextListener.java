@@ -45,6 +45,11 @@ public class ContextListener implements ServletContextListener {
             if (Configuration.isParseDataset()) {
                 HetrecParser.parseHetrecDataset();
             }
+            //TODO: fill popular movies
+
+            //TODO: fill users similarity matrix
+
+
         } catch (Exception ex) {
             log.error("cannot setup configs", ex);
             throw new RuntimeException("context initialized failed", ex);

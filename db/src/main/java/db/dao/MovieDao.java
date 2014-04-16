@@ -43,6 +43,10 @@ public interface MovieDao {
     @Mapper(MovieMapper.class)
     List<Movie> getTopMovies (@Bind("topMoviesCount") int topMoviesCount);
 
+    @SqlQuery("select * from movies, (select movie_id from ratings where user_id = :user_id) r where movies.id = r.movie_id")
+    @Mapper(MovieMapper.class)
+    List<Movie> getWatchedMovies(@Bind("user_id") long userId);
+
 
     void close();
 }
