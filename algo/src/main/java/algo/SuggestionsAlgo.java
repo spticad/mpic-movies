@@ -15,18 +15,18 @@ import java.util.Map;
 public class SuggestionsAlgo {
     private final int RATING_VALUES_COUNT = 10;
 
+
     private int usersCount;     //number of users
     private int ratingValuesCount;    //number of ratings, size of rating count matrix
-    private double[][] similarityValues;
+    private List<UserToUserRating> similarityValues;
     private List<User> allUsers;
     private List<Movie> allMovies;
     private List<Rating> allRatings;
 
-    public List<Movie> getRecommended(User user, Map<User, List<Rating>> ratings, int limit) {
-        CalculateUserSimilarity(allUsers, ratings.get(user));
+    public List<Movie> getRecommended(User user, Map<User, List<Rating>> ratings, List<Movie> notRatedMovies, int limit) {
+        CalculateUserSimilarity(allUsers, ratings);
         List<RatedMovie> recommendations = new ArrayList<>();
-        List<Movie> notRated = null; //list of movies not rated by the user
-        predictMovieRatings(user, recommendations, notRated, ratings);
+        predictMovieRatings(user, recommendations, notRatedMovies, ratings);
         Collections.sort(recommendations);
         List<Movie> recommendedMovies = new ArrayList<>(limit);
         for(int i = 0; i < limit; i++){
@@ -52,7 +52,8 @@ public class SuggestionsAlgo {
         for (User anotherUser : allUsers) {
             double ratingByAnotherUser = getRatingByUser(anotherUser, movie, ratings);
             if (!Double.isNaN(ratingByAnotherUser)) {   //if item was rated
-                double similarityBetweenUsers = similarityValues[allUsers.indexOf(user)][allUsers.indexOf(anotherUser)];
+                //TODO: get similarity
+                double similarityBetweenUsers = 0; //= similarityValues[allUsers.indexOf(user)][allUsers.indexOf(anotherUser)];
                 double weightRating = similarityBetweenUsers * ratingByAnotherUser;
                 weightRatingSum += weightRating;
                 similaritySum += similarityBetweenUsers;
@@ -73,25 +74,25 @@ public class SuggestionsAlgo {
         return movieRating;
     }
 
-    private void CalculateUserSimilarity(List<User> users, List<Rating> ratingsByUserA) {
+    public List<UserToUserRating> CalculateUserSimilarity(List<User> users, Map<User, List<Rating>> ratings) {
         usersCount = users.size();
         ratingValuesCount = RATING_VALUES_COUNT;
-        similarityValues = new double[usersCount][usersCount];
+        List<UserToUserRating> similarityValues = new ArrayList<>();
         RatingCountMatrix rcm;
         for (int u = 0; u < usersCount; u++) {
             for (int v = u + 1; v < usersCount; v++) {
-                List<Rating> ratingsByUserB = null;  //initialize list of ratings by user
-                rcm = new RatingCountMatrix(ratingsByUserA, ratingsByUserB, ratingValuesCount);
+                rcm = new RatingCountMatrix(ratings.get(users.get(u)), ratings.get(users.get(u)), ratingValuesCount);
                 int totalCount = rcm.GetTotalCount();
                 int agreementCount = rcm.GetAgreementCount();
                 if (agreementCount > 0) {
-                    similarityValues[u][v] = (double) agreementCount / (double) totalCount;
+                    similarityValues.add(new UserToUserRating(new Tuple<>(users.get(u),users.get(v)), (double) agreementCount / (double) totalCount));
                 } else {
-                    similarityValues[u][v] = 0.0;
+                    similarityValues.add(new UserToUserRating(new Tuple<>(users.get(u),users.get(v)), 0.0));
                 }
             }
-            similarityValues[u][u] = 1.0;
+            similarityValues.add(new UserToUserRating(new Tuple<>(users.get(u),users.get(u)), 1.0));
         }
+        return similarityValues;
     }
 
 

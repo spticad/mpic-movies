@@ -4,8 +4,10 @@ import algo.PreferencesAlgo;
 import algo.SuggestionsAlgo;
 import config.Configuration;
 import db.DbiManager;
+import db.PopularMoviesManager;
 import db.daologic.MovieDaoLogic;
 import db.daologic.RatingDaoLogic;
+import db.daologic.UserDaoLogic;
 import models.Movie;
 import models.Rating;
 import models.User;
@@ -19,7 +21,7 @@ import java.util.*;
 public class MovieService {
 
     private static final long FAKE_USER_ID = 2145;
-
+    private UserDaoLogic userDaoLogic = new UserDaoLogic(DbiManager.getDbi());
     private MovieDaoLogic movieDaoLogic = new MovieDaoLogic(DbiManager.getDbi());
     private RatingDaoLogic ratingDaoLogic = new RatingDaoLogic(DbiManager.getDbi());
     private PreferencesAlgo preferencesAlgo = new PreferencesAlgo();
@@ -38,11 +40,10 @@ public class MovieService {
 
         //TODO: get popular movies
         //TODO: cache popular movies, maybe during context initialization
-        List<Movie> popular = movieDaoLogic.getTopMovies(Configuration.getPopularMoviesCount());
         //TODO: get rated movies (add method for getting rated movies by user with specified id)
         List<Movie> watched = movieDaoLogic.getWatchedMovies(FAKE_USER_ID);
 
-        return preferencesAlgo.getForRating(popular, watched);
+        return preferencesAlgo.getForRating(PopularMoviesManager.getPopularMovies(), watched);
 
     }
 
@@ -54,24 +55,27 @@ public class MovieService {
     }
 
     public List<Movie> getRecommended(int limit) {
+        List<User> allUsers = userDaoLogic.getAll();
         //TODO: get user by token
         User user = new User(2145, "", "", "", "", "", null);
         //TODO: add similar users count property
         List<User> similarUsers = getMostSimilarUsers(user, 10);
         Map<User, List<Rating>> ratingsByUsers = getRatings(similarUsers);
-        return suggestionsAlgo.getRecommended(user, ratingsByUsers, limit);
+        List<Movie> notRatedMovies = movieDaoLogic.getNotRatedMovies(user.getId());
+        return suggestionsAlgo.getRecommended(user, ratingsByUsers, notRatedMovies, limit);
     }
 
     private Map<User, List<Rating>> getRatings(List<User> users) {
         Map<User, List<Rating>> ratingsByUsers = new HashMap<>();
-        for(User user : users) {
-             ratingsByUsers.put(user, ratingDaoLogic.getByUserId(user.getId()));
+        for (User user : users) {
+            ratingsByUsers.put(user, ratingDaoLogic.getByUserId(user.getId()));
         }
         return ratingsByUsers;
     }
 
     private List<User> getMostSimilarUsers(User user, int limit) {
         List<User> similarUsers = new ArrayList<>();
+
         //TODO: fill by similarity matrix
         return similarUsers;
     }

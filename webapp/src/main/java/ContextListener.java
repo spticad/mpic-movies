@@ -1,5 +1,6 @@
 import config.Configuration;
 import db.DbiManager;
+import db.PopularMoviesManager;
 import db.SchemaMigrator;
 import hetrecparser.HetrecParser;
 import org.slf4j.Logger;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.swing.event.PopupMenuListener;
 import java.lang.invoke.MethodHandles;
 
 import static config.Configuration.DB;
@@ -46,7 +48,8 @@ public class ContextListener implements ServletContextListener {
                 HetrecParser.parseHetrecDataset();
             }
             //TODO: fill popular movies
-
+            log.info("fill popular movies list: {}", Configuration.isParseDataset());
+            PopularMoviesManager.fillPopularMoviesList();
             //TODO: fill users similarity matrix
 
 

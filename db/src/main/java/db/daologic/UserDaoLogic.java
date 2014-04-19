@@ -19,7 +19,7 @@ public class UserDaoLogic {
         this.dbi = dbi;
     }
 
-    public List<User> getAll(String googleId) {
+    public List<User> getAll() {
         UserDao dao = dbi.open(UserDao.class);
         List<User> users = dao.getAll();
         dao.close();
