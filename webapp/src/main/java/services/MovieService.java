@@ -37,12 +37,7 @@ public class MovieService {
 //        Random r = new Random();
 //        return movies[r.nextInt(4)];
 
-
-        //TODO: get popular movies
-        //TODO: cache popular movies, maybe during context initialization
-        //TODO: get rated movies (add method for getting rated movies by user with specified id)
         List<Movie> watched = movieDaoLogic.getWatchedMovies(FAKE_USER_ID);
-
         return preferencesAlgo.getForRating(PopularMoviesManager.getPopularMovies(), watched);
 
     }

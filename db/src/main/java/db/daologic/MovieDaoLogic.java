@@ -57,7 +57,7 @@ public class MovieDaoLogic {
         return id;
     }
 
-    public List <Movie> getTopMovies (int topMoviesCount){
+    public List<Movie> getTopMovies(int topMoviesCount) {
         MovieDao dao = dbi.open(MovieDao.class);
         List<Movie> movies = dao.getTopMovies(topMoviesCount);
         dao.close();

@@ -18,12 +18,15 @@ public class PopularMoviesManager {
     private static List<Movie> popularMovies = null;
     private static MovieDaoLogic movieDaoLogic = new MovieDaoLogic(DbiManager.getDbi());
 
-    private PopularMoviesManager() {}
-   public static void fillPopularMoviesList(){
-       popularMovies = movieDaoLogic.getTopMovies(Configuration.getPopularMoviesCount());
+    private PopularMoviesManager() {
+    }
 
-   }
-    public static List<Movie> getPopularMovies(){
+    public static void fillPopularMoviesList() {
+        popularMovies = movieDaoLogic.getTopMovies(Configuration.getPopularMoviesCount());
+
+    }
+
+    public static List<Movie> getPopularMovies() {
         log.debug("popular movies list");
         log.debug("List items count: {},  ",
                 popularMovies.size());

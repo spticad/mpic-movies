@@ -47,9 +47,9 @@ public class ContextListener implements ServletContextListener {
             if (Configuration.isParseDataset()) {
                 HetrecParser.parseHetrecDataset();
             }
-            //TODO: fill popular movies
-            log.info("fill popular movies list: {}", Configuration.isParseDataset());
+            log.info("fill popular movies list:");
             PopularMoviesManager.fillPopularMoviesList();
+
             //TODO: fill users similarity matrix
 
 
