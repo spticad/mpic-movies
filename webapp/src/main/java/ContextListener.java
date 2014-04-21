@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.swing.event.PopupMenuListener;
 import java.lang.invoke.MethodHandles;
 
 import static config.Configuration.DB;
@@ -22,7 +21,6 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         log.info("context initialized");
-
         try {
             log.info(DB.toString());
             log.info(Configuration.OAUTH.toString());
@@ -48,8 +46,7 @@ public class ContextListener implements ServletContextListener {
                 HetrecParser.parseHetrecDataset();
             }
             log.info("fill popular movies list:");
-            PopularMoviesManager.fillPopularMoviesList();
-
+            PopularMoviesManager.fillPopularMoviesList(Configuration.getPopularMoviesCount());
             //TODO: fill users similarity matrix
 
 
