@@ -2,6 +2,7 @@ import config.Configuration;
 import db.DbiManager;
 import db.PopularMoviesManager;
 import db.SchemaMigrator;
+import db.SimilarityMatrixManager;
 import hetrecparser.HetrecParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +48,9 @@ public class ContextListener implements ServletContextListener {
             }
             log.info("fill popular movies list:");
             PopularMoviesManager.fillPopularMoviesList(Configuration.getPopularMoviesCount());
-            //TODO: fill users similarity matrix
+            log.info("Calculate user similarity matrix:");
+            SimilarityMatrixManager.CalculateUserSimilarity();
+
 
 
         } catch (Exception ex) {

@@ -1,4 +1,4 @@
-package algo;
+package db;
 
 /**
  * Created by Alex on 19/04/14.

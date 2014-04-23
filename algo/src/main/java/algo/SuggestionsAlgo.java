@@ -13,18 +13,8 @@ import java.util.Map;
  * Created by vitaly on 4/9/14.
  */
 public class SuggestionsAlgo {
-    private final int RATING_VALUES_COUNT = 10;
-
-
-    private int usersCount;     //number of users
-    private int ratingValuesCount;    //number of ratings, size of rating count matrix
-    private List<UserToUserRating> similarityValues;
-    private List<User> allUsers;
-    private List<Movie> allMovies;
-    private List<Rating> allRatings;
 
     public List<Movie> getRecommended(User user, Map<User, List<Rating>> ratings, List<Movie> notRatedMovies, int limit) {
-        CalculateUserSimilarity(allUsers, ratings);
         List<RatedMovie> recommendations = new ArrayList<>();
         predictMovieRatings(user, recommendations, notRatedMovies, ratings);
         Collections.sort(recommendations);
@@ -74,26 +64,7 @@ public class SuggestionsAlgo {
         return movieRating;
     }
 
-    public List<UserToUserRating> CalculateUserSimilarity(List<User> users, Map<User, List<Rating>> ratings) {
-        usersCount = users.size();
-        ratingValuesCount = RATING_VALUES_COUNT;
-        List<UserToUserRating> similarityValues = new ArrayList<>();
-        RatingCountMatrix rcm;
-        for (int u = 0; u < usersCount; u++) {
-            for (int v = u + 1; v < usersCount; v++) {
-                rcm = new RatingCountMatrix(ratings.get(users.get(u)), ratings.get(users.get(u)), ratingValuesCount);
-                int totalCount = rcm.GetTotalCount();
-                int agreementCount = rcm.GetAgreementCount();
-                if (agreementCount > 0) {
-                    similarityValues.add(new UserToUserRating(new Tuple<>(users.get(u),users.get(v)), (double) agreementCount / (double) totalCount));
-                } else {
-                    similarityValues.add(new UserToUserRating(new Tuple<>(users.get(u),users.get(v)), 0.0));
-                }
-            }
-            similarityValues.add(new UserToUserRating(new Tuple<>(users.get(u),users.get(u)), 1.0));
-        }
-        return similarityValues;
-    }
+
 
 
 }

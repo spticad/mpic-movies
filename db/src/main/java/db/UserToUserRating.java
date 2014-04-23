@@ -1,4 +1,4 @@
-package algo;
+package db;
 
 import models.User;
 
@@ -28,6 +28,9 @@ public class UserToUserRating implements Comparable<UserToUserRating> {
 
     public void setSimilarity(double similarity) {
         this.similarity = similarity;
+    }
+    public boolean isInRating(User user){
+        return this.userToUser._0.equals(user)||this.userToUser._1.equals(user);
     }
 
     @Override

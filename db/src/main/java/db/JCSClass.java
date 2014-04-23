@@ -26,7 +26,15 @@ public class JCSClass {
         }
     }
 
-    public void addElement(String key, List<Movie> value) {
+    public void addMoviesElement(String key, List<Movie> value) {
+        try {
+            cache.put(key, value);
+        } catch (CacheException ex) {
+            log.error(ex.getMessage());
+        }
+    }
+
+    public void addMatrixElement(String key, List<UserToUserRating> value) {
         try {
             cache.put(key, value);
         } catch (CacheException ex) {
@@ -36,5 +44,9 @@ public class JCSClass {
 
     public String getElement(String key) {
         return (String) cache.get(key);
+    }
+
+    public List<UserToUserRating> getSimilarityMatrix(String key) {
+        return (List<UserToUserRating>) cache.get(key);
     }
 }

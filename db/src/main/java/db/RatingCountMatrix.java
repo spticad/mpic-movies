@@ -1,4 +1,4 @@
-package algo;
+package db;
 
 import models.Rating;
 import models.User;
@@ -14,9 +14,11 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class RatingCountMatrix implements Serializable {
+    private final int RATING_VALUES_COUNT = 10;
     private int[][] matrix = null;
 
-    public RatingCountMatrix(List<Rating> ratingsByUserA, List<Rating> ratingsByUserB, int nRatingValues) {
+    public RatingCountMatrix(List<Rating> ratingsByUserA, List<Rating> ratingsByUserB) {
+        int nRatingValues = RATING_VALUES_COUNT;
         Init(nRatingValues);
         Calculate(ratingsByUserA, ratingsByUserB);
     }
