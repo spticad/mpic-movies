@@ -2,8 +2,9 @@ var defaultValue = "Rate this movie";
 var svalue = defaultValue;
 var currentMovie = {};
 var ratedMovies = 0;
-var moveUp = false;
+var moveUp=false;
 var animationFinished = true;
+var firstOne = true;
 
 $(".rateit").bind('rated', function () {
     $("#ratedvalue").html($(this).rateit('value') + " of 10");
@@ -15,8 +16,24 @@ $(".rateit").bind('rated', function () {
     //check if number of films is greater than 10 - than redirect to suggestions.html
     if (ratedMovies >= 10) {
         //TODO: use some bootstrap styled confirm dialog
-        alert("You are already rated 10 films");
-        window.location.replace("suggestions.html");
+        jQuery(function($) {
+            $('form[data-form-confirm]').submit(function(e) {
+                e.preventDefault();
+
+                var form = $(this),
+                    modal = $('#' + form.attr('data-form-confirm'))
+
+                modal.modal({
+                    show: true,
+                    backdrop: true
+                });
+
+                modal.find('.btn-confirm').click(function() {
+                    modal.modal('hide');
+                    form.unbind('submit').submit();
+                });
+            });
+        });
     }
     else {
         handleNextMovie();
@@ -44,16 +61,23 @@ $(".next").click(function () {
     handleNextMovie();
 });
 
+function setSize(){
+    $('#poster2').width(220); // Units are assumed to be pixels
+    $('#poster2').height(318);
+    $('#poster').width(220); // Units are assumed to be pixels
+    $('#poster').height(318);
+}
+
 function showMovieData(movie) {
     movie = JSON.parse(movie);
 
     if (animationFinished) {
         animationFinished = false;
 
-        $("#poster").attr("src", movie.Poster);
 
         if (!moveUp) {
             $("#poster2").attr("src", movie.Poster);
+            setSize();
             $("#poster").animate({
                 marginTop: -335
             }, 1500, function () {
@@ -65,6 +89,7 @@ function showMovieData(movie) {
         }
         else {
             $("#poster").attr("src", movie.Poster);
+            setSize();
             $("#poster").animate({
                 marginTop: 0
             }, 1500, function () {
@@ -75,6 +100,7 @@ function showMovieData(movie) {
             });
         }
 
+
         $("#info").fadeOut('fast');
 
 
@@ -83,6 +109,23 @@ function showMovieData(movie) {
         svalue = defaultValue;
     }
 }
+
+$('#dialog').dialog({
+    autoOpen: false,
+    height: 280,
+    modal: true,
+    resizable: false,
+    buttons: {
+        'Продолжить': function() {
+            $(this).dialog('close');
+            handleNextMovie();
+        },
+        'Перейти': function() {
+            $(this).dialog('close');
+            window.location.replace("suggestions.html");
+        }
+    }
+});
 
 function fillMovieData(movie) {
     $("#title").html(movie.Title);
@@ -106,4 +149,5 @@ function postRating(idMovie, rating) {
 }
 
 //get first movie for rating
-handleNextMovie();
+
+    handleNextMovie();
