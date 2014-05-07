@@ -57,9 +57,23 @@ public class MovieDaoLogic {
         return id;
     }
 
-    public List <Movie> getTopMovies (int topMoviesCount){
+    public List<Movie> getTopMovies(int topMoviesCount) {
         MovieDao dao = dbi.open(MovieDao.class);
         List<Movie> movies = dao.getTopMovies(topMoviesCount);
+        dao.close();
+        return movies;
+    }
+
+    public List<Movie> getWatchedMovies(long userId) {
+        MovieDao dao = dbi.open(MovieDao.class);
+        List<Movie> movies = dao.getWatchedMovies(userId);
+        dao.close();
+        return movies;
+    }
+
+    public List<Movie> getNotRatedMovies(long userId) {
+        MovieDao dao = dbi.open(MovieDao.class);
+        List<Movie> movies = dao.getNotRatedMovies(userId);
         dao.close();
         return movies;
     }

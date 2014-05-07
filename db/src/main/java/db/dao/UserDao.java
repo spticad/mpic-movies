@@ -9,14 +9,23 @@ import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.Mapper;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by vitaly on 3/12/14.
  */
 public interface UserDao {
+    @SqlQuery("select * from users")
+    @Mapper(UserMapper.class)
+    List<User> getAll();
+
     @SqlQuery("select * from users where g_id = :g_id")
     @Mapper(UserMapper.class)
     User getByGoogleId(@Bind("g_id") String googleId);
+
+    @SqlQuery("select * from users where id = :id")
+    @Mapper(UserMapper.class)
+    User getById(@Bind("id") long id);
 
     @SqlQuery("select * from users where access_token = :access_token")
     @Mapper(UserMapper.class)

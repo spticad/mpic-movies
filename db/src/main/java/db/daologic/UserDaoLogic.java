@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import org.skife.jdbi.v2.DBI;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * Created by vitaly on 3/12/14.
@@ -18,9 +19,23 @@ public class UserDaoLogic {
         this.dbi = dbi;
     }
 
+    public List<User> getAll() {
+        UserDao dao = dbi.open(UserDao.class);
+        List<User> users = dao.getAll();
+        dao.close();
+        return users;
+    }
+
     public User getByGoogleId(String googleId) {
         UserDao dao = dbi.open(UserDao.class);
         User user = dao.getByGoogleId(googleId);
+        dao.close();
+        return user;
+    }
+
+    public User getById(long id) {
+        UserDao dao = dbi.open(UserDao.class);
+        User user = dao.getById(id);
         dao.close();
         return user;
     }

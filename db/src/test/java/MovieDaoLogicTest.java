@@ -1,4 +1,5 @@
 import db.DbiManager;
+import db.dao.MovieDao;
 import db.daologic.MovieDaoLogic;
 import models.Movie;
 import org.dbunit.Assertion;
@@ -40,14 +41,14 @@ public class MovieDaoLogicTest {
     }
 
     @Test
-    public void testSelectById() {
+    public void testGetById() {
         Movie actual = dao.getById(1);
         Movie expected = new Movie(1, "Casper", "url", "tt1");
         Assert.assertEquals(expected, actual);
     }
 
     @Test
-    public void testSelectByImdbId() {
+    public void testGetByImdbId() {
         Movie actual = dao.getByImdbId("tt3");
         Movie expected = new Movie(3, "Casper 3", "url 3", "tt3");
         Assert.assertEquals(expected, actual);
@@ -94,4 +95,34 @@ public class MovieDaoLogicTest {
         Assert.assertEquals(expected, actual);
     }
 
+    @Test
+    public void testGetWatchedMovies() throws Exception {
+        long userId=1;
+
+        List<Movie> actual = dao.getWatchedMovies(userId);
+
+        List<Movie> expected = new ArrayList() {{
+            add(new Movie(2, "Casper 2", "url 2", "tt2"));
+            add(new Movie(3, "Casper 3", "url 3", "tt3"));
+            add(new Movie(4, "Casper 4", "url 4", "tt4"));
+            add(new Movie(5, "Casper 5", "url 5", "tt5"));
+        }};
+
+        Assert.assertEquals(expected, actual);
+    }
+    @Test
+    public void testGetNotRatedMovies() throws Exception {
+        long userId=3;
+
+        List<Movie> actual = dao.getNotRatedMovies(userId);
+
+        List<Movie> expected = new ArrayList() {{
+            add(new Movie(2, "Casper 2", "url 2", "tt2"));
+            add(new Movie(3, "Casper 3", "url 3", "tt3"));
+            add(new Movie(5, "Casper 5", "url 5", "tt5"));
+        }};
+
+        Assert.assertEquals(expected, actual);
+    }
 }
+
