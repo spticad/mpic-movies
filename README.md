@@ -1,4 +1,4 @@
-![mpic-movies](http://mpic-movies-test02.herokuapp.com/images/logo.png)
+![mpic-movies](http://mpic-movies.herokuapp.com/images/logo.png)
 
 **mpic-movies** - [веб-сервис и веб-клиент для выдачи рекомендаций по кинофильмам](http://mpic-movies-test02.herokuapp.com/). 
 
