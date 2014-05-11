@@ -38,20 +38,20 @@ public class SuggestionsAlgo {
         double predictedRating = Double.NaN;
         double similaritySum = 0.0;
         double weightRatingSum = 0.0;
-
-        for (User anotherUser : allUsers) {
-            double ratingByAnotherUser = getRatingByUser(anotherUser, movie, ratings);
-            if (!Double.isNaN(ratingByAnotherUser)) {   //if item was rated
-                //TODO: get similarity
-                double similarityBetweenUsers = 0; //= similarityValues[allUsers.indexOf(user)][allUsers.indexOf(anotherUser)];
-                double weightRating = similarityBetweenUsers * ratingByAnotherUser;
-                weightRatingSum += weightRating;
-                similaritySum += similarityBetweenUsers;
-            }
-            if (similaritySum > 0.0) {
-                predictedRating = weightRatingSum / similaritySum;
-            }
-        }
+//
+//        for (User anotherUser : allUsers) {
+//            double ratingByAnotherUser = getRatingByUser(anotherUser, movie, ratings);
+//            if (!Double.isNaN(ratingByAnotherUser)) {   //if item was rated
+//                //TODO: get similarity
+//                double similarityBetweenUsers = 0; //= similarityValues[allUsers.indexOf(user)][allUsers.indexOf(anotherUser)];
+//                double weightRating = similarityBetweenUsers * ratingByAnotherUser;
+//                weightRatingSum += weightRating;
+//                similaritySum += similarityBetweenUsers;
+//            }
+//            if (similaritySum > 0.0) {
+//                predictedRating = weightRatingSum / similaritySum;
+//            }
+//        }
         return predictedRating;
     }
 

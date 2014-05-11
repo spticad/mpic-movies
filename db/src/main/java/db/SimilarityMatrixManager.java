@@ -26,7 +26,7 @@ public class SimilarityMatrixManager {
     private static List<UserToUserRating> similarityMatrix = null;
     private static UserDaoLogic userDaoLogic = new UserDaoLogic(DbiManager.getDbi());
     private static RatingDaoLogic ratingDaoLogic = new RatingDaoLogic(DbiManager.getDbi());
-    private static JCSClass jcs = new JCSClass();
+    private static Cache cache = new Cache();
 
 
     private SimilarityMatrixManager() {
@@ -35,7 +35,7 @@ public class SimilarityMatrixManager {
 
     public List<UserToUserRating> getUsersFriends(User user, double similarityValue){
         List<UserToUserRating> friends = null;
-        similarityMatrix = new JCSClass().getSimilarityMatrix("key");//TODO: define key
+        similarityMatrix = new Cache().getSimilarityMatrix();//TODO: define key
         if (similarityMatrix == null)
             return similarityMatrix;
         else {
@@ -55,7 +55,7 @@ public class SimilarityMatrixManager {
             ratings.put(user, ratingDaoLogic.getByUserId(users.indexOf(user)));
         }
         int usersCount = users.size();
-        similarityMatrix = initUserToUserRatings(jcs);
+        similarityMatrix = initUserToUserRatings(cache);
         RatingCountMatrix rcm;
         for (int u = 0; u < usersCount; u++) {
             for (int v = u + 1; v < usersCount; v++) {
@@ -73,12 +73,12 @@ public class SimilarityMatrixManager {
         return similarityMatrix;
     }
 
-    private static List<UserToUserRating> initUserToUserRatings(JCSClass jcs) {
+    private static List<UserToUserRating> initUserToUserRatings(Cache jcs) {
         List<UserToUserRating> similarityMatrix;
-        similarityMatrix =  jcs.getSimilarityMatrix("key"); //TODO: define key
+        similarityMatrix =  jcs.getSimilarityMatrix(); //TODO: define key
         if(similarityMatrix==null){
             CalculateUserSimilarity();
-            jcs.addMatrixElement("key", similarityMatrix);
+            jcs.setSimilarityMatrix(similarityMatrix);
         }
         return similarityMatrix;
     }

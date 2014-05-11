@@ -49,7 +49,7 @@ public class ContextListener implements ServletContextListener {
             log.info("fill popular movies list:");
             PopularMoviesManager.fillPopularMoviesList(Configuration.getPopularMoviesCount());
             log.info("Calculate user similarity matrix:");
-            SimilarityMatrixManager.CalculateUserSimilarity();
+//            SimilarityMatrixManager.CalculateUserSimilarity();
 
 
 
