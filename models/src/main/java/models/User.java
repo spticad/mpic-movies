@@ -11,6 +11,11 @@ public class User {
     private String token;
     private DateTime registrationDate;
 
+    public User(String token, String googleId) {
+        this.token = token;
+        this.googleId = googleId;
+    }
+
     public User(long id, String googleId, String googleName, String googleEmail, String googleImage, String token, DateTime registrationDate) {
         this.id = id;
         this.googleId = googleId;

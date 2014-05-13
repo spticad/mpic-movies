@@ -38,6 +38,11 @@ public class UserDaoLogic {
         dao.close();
     }
 
+    public long insert(User user) {
+        return insert(user.getGoogleId(), user.getGoogleName(), user.getGoogleEmail(), user.getGoogleImage(),
+                user.getToken(), user.getRegistrationDate());
+    }
+
     public long insert(String googleId, String googleName, String googleEmail, String googleImage, String token, DateTime registrationDate) {
         UserDao dao = dbi.open(UserDao.class);
         long id = dao.insert(googleId, googleName, googleEmail, googleImage, token, new Timestamp(registrationDate.getMillis()));
