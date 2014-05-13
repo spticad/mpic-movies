@@ -85,8 +85,34 @@
             <artifactId>jersey-test-framework-provider-jetty</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.google.http-client</groupId>
+            <artifactId>google-http-client</artifactId>
+            <version>1.13.1-beta</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.http-client</groupId>
+            <artifactId>google-http-client-jackson</artifactId>
+            <version>1.13.1-beta</version>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>6.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.apis</groupId>
+            <artifactId>google-api-services-oauth2</artifactId>
+            <version>v2-rev29-1.13.2-beta</version>
+        </dependency>
     </dependencies>
-
+    <repositories>
+        <repository>
+            <id>google-api-services</id>
+            <url>http://google-api-client-libraries.appspot.com/mavenrepo</url>
+        </repository>
+    </repositories>
     <build>
         <plugins>
             <plugin>
