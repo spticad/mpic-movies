@@ -19,7 +19,7 @@ public class SuggestionsAlgo {
         predictMovieRatings(user, recommendations, notRatedMovies, ratings);
         Collections.sort(recommendations);
         List<Movie> recommendedMovies = new ArrayList<>(limit);
-        for(int i = 0; i < limit; i++){
+        for (int i = 0; i < limit; i++) {
             recommendedMovies.add(recommendations.get(i).getMovie());
         }
         return recommendedMovies;
@@ -55,16 +55,14 @@ public class SuggestionsAlgo {
         return predictedRating;
     }
 
-    private double getRatingByUser(User user, Movie movie, Map<User, List<Rating>> ratings){
+    private double getRatingByUser(User user, Movie movie, Map<User, List<Rating>> ratings) {
         double movieRating = Double.NaN;
-        for(Rating rating : ratings.get(user)){
+        for (Rating rating : ratings.get(user)) {
             if (rating.getMovieId() == movie.getId())
-                movieRating = (double)rating.getRating();
+                movieRating = (double) rating.getRating();
         }
         return movieRating;
     }
-
-
 
 
 }
