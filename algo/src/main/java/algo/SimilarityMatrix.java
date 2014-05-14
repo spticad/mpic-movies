@@ -27,7 +27,7 @@ public class SimilarityMatrix {
         for (int i = 0; i < users.size(); i++) {
             User userA = users.get(i);
             Map<User, Double> map = new HashMap<>();
-            for (int j = i; j <= users.size(); j++) {
+            for (int j = i; j < users.size(); j++) {
                 RatingCountMatrix rcm = calcRatingCountMatrix(userA, users.get(j), ratings);
                 map.put(users.get(j), (double)rcm.similarityCount / rcm.totalCount);
             }
