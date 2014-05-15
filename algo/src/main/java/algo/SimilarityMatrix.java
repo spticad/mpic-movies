@@ -16,14 +16,22 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class SimilarityMatrix {
+    private static SimilarityMatrix _instance;
     private final int NUMBER_OF_RATINGS = 10;
-    public Map<User, Map<User, Double>> matrix;
+    private static Map<User, Map<User, Double>> matrix;
 
-    public SimilarityMatrix() {
-        this.matrix = new HashMap<>();
+    public static synchronized SimilarityMatrix getInstance(List<User> users, List<Rating> ratings) {
+        if (_instance == null)
+            _instance = new SimilarityMatrix(users, ratings);
+        return _instance;
     }
 
-    public void initMatrix(List<User> users, List<Rating> ratings) {
+    private SimilarityMatrix(List<User> users, List<Rating> ratings) {
+        this.matrix = new HashMap<>();
+        initMatrix(users, ratings);
+    }
+
+    private void initMatrix(List<User> users, List<Rating> ratings) {
         for (int i = 0; i < users.size(); i++) {
             User userA = users.get(i);
             Map<User, Double> map = new HashMap<>();
