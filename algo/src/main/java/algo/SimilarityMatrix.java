@@ -54,4 +54,20 @@ public class SimilarityMatrix {
 
         return rcm;
     }
+    public Double getUserToUserSimilarity(User userA, User userB){
+        Double pairSimilarity = Double.NaN;
+        if(this.matrix == null){
+        }
+        else{
+            Map<User, Double> usersSimilarities = this.matrix.get(userA);
+            if(usersSimilarities.get(userB) == null){
+                usersSimilarities = this.matrix.get(userB);
+                pairSimilarity = usersSimilarities.get(userA);
+            }
+            else{
+                pairSimilarity = usersSimilarities.get(userB);
+            }
+        }
+        return pairSimilarity;
+    }
 }

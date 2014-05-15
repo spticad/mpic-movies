@@ -67,5 +67,13 @@ public class SimilarityMatrixTest {
         Assert.assertEquals(expected, actual);
     }
 
+    @Test
+    public void testGetUserToUserSimilarity(){
+        similarityMatrix.initMatrix(users, ratings);
+        Double expected = similarityMatrix.getUserToUserSimilarity(users.get(0), users.get(1));
+        Double actual = similarityMatrix.getUserToUserSimilarity(users.get(1), users.get(0));
+        Assert.assertEquals(expected, actual);
+    }
+
 
 }
