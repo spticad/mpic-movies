@@ -16,7 +16,7 @@ public class SuggestionsAlgo {
 
     public List<Movie> getRecommended(User user, Map<User, List<Rating>> ratings, List<Movie> notRatedMovies, int limit) {
         List<RatedMovie> recommendations = new ArrayList<>();
-        predictMovieRatings(user, recommendations, notRatedMovies, ratings);
+       // predictMovieRatings(user, recommendations, notRatedMovies, ratings);
         Collections.sort(recommendations);
         List<Movie> recommendedMovies = new ArrayList<>(limit);
         for (int i = 0; i < limit; i++) {
@@ -25,25 +25,25 @@ public class SuggestionsAlgo {
         return recommendedMovies;
     }
 
-    private void predictMovieRatings(User user, List<RatedMovie> recommendations, List<Movie> notRated, Map<User, List<Rating>> ratings) {
+    private void predictMovieRatings(List<User> closeUsers, User user, List<RatedMovie> recommendations, List<Movie> notRated, Map<User, List<Rating>> ratings) {
         for (Movie movie : notRated) {
-            double predictedRating = PredictRating(user, movie, ratings);
+            double predictedRating = PredictRating(closeUsers, user, movie, ratings);
             if (!Double.isNaN(predictedRating)) {
                 recommendations.add(new RatedMovie(movie, predictedRating));
             }
         }
     }
 
-    private double PredictRating(User user, Movie movie, Map<User, List<Rating>> ratings) {
+    private double PredictRating(List<User> closeUsers, User user, Movie movie, Map<User, List<Rating>> ratings) {
         double predictedRating = Double.NaN;
         double similaritySum = 0.0;
         double weightRatingSum = 0.0;
-//
-//        for (User anotherUser : allUsers) {
+        SimilarityMatrix similarityMatrix;
+
+//        for (User anotherUser : closeUsers) {
 //            double ratingByAnotherUser = getRatingByUser(anotherUser, movie, ratings);
 //            if (!Double.isNaN(ratingByAnotherUser)) {   //if item was rated
-//                //TODO: get similarity
-//                double similarityBetweenUsers = 0; //= similarityValues[allUsers.indexOf(user)][allUsers.indexOf(anotherUser)];
+//                //double similarityBetweenUsers = similarityMatrix.getUserToUserSimilarity(users, ratings, users.get(0), users.get(1)); //= similarityValues[allUsers.indexOf(user)][allUsers.indexOf(anotherUser)];
 //                double weightRating = similarityBetweenUsers * ratingByAnotherUser;
 //                weightRatingSum += weightRating;
 //                similaritySum += similarityBetweenUsers;

@@ -20,10 +20,10 @@ public class SimilarityMatrix {
     private final int NUMBER_OF_RATINGS = 10;
     private static Map<User, Map<User, Double>> matrix;
 
-    public static synchronized SimilarityMatrix getInstance(List<User> users, List<Rating> ratings) {
+    public static synchronized Double getUserToUserSimilarity(List<User> users, List<Rating> ratings, User userA, User userB) {
         if (_instance == null)
             _instance = new SimilarityMatrix(users, ratings);
-        return _instance;
+        return _instance.calculateUserToUserSimilarity(userA, userB);
     }
 
     private SimilarityMatrix(List<User> users, List<Rating> ratings) {
@@ -62,7 +62,7 @@ public class SimilarityMatrix {
 
         return rcm;
     }
-    public Double getUserToUserSimilarity(User userA, User userB){
+    private Double calculateUserToUserSimilarity(User userA, User userB){
         Double pairSimilarity = Double.NaN;
         if(this.matrix == null){
         }

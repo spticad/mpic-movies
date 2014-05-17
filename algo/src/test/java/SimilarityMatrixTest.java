@@ -7,7 +7,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,13 +41,12 @@ public class SimilarityMatrixTest {
             add(new Rating(3, 2, (short) 3, new DateTime(2014, 5, 7, 12, 18, 11, 105)));
             add(new Rating(3, 3, (short) 1, new DateTime(2014, 5, 7, 12, 19, 11, 105)));
         }};
-        similarityMatrix = SimilarityMatrix.getInstance(users, ratings);
     }
 
     @Test
     public void testGetUserToUserSimilarity(){
-        Double expected = similarityMatrix.getUserToUserSimilarity(users.get(0), users.get(1));
-        Double actual = similarityMatrix.getUserToUserSimilarity(users.get(1), users.get(0));
+        Double expected = similarityMatrix.getUserToUserSimilarity(users, ratings, users.get(0), users.get(1));
+        Double actual = similarityMatrix.getUserToUserSimilarity(users, ratings, users.get(1), users.get(0));
         Assert.assertEquals(expected, actual);
     }
 
