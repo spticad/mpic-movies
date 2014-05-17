@@ -16,13 +16,16 @@ import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
+import services.UrlUtil;
+
 
 public final class GoogleAuthHelper {
 
 
 	private static final String CLIENT_ID = "213137666812-itkbsod19h69gc0nvb1lenl8od9fab7l.apps.googleusercontent.com";
 	private static final String CLIENT_SECRET = "T-MN-1I0XKq9IpLLSb468oMW";
-	private static final String CALLBACK_URI = "http://localhost:8080";
+	private static final String CALLBACK_URI = "http://localhost:8080/api/user/auth";
+    // TODO: redirect_url = getUrlTo(request, "user", "auth", "")
 	
 	// start google authentication constants
 	private static final Iterable<String> SCOPE = Arrays.asList("https://www.googleapis.com/auth/userinfo.profile;https://www.googleapis.com/auth/userinfo.email".split(";"));
@@ -83,15 +86,19 @@ public final class GoogleAuthHelper {
 		final GoogleTokenResponse response = flow.newTokenRequest(authCode).setRedirectUri(CALLBACK_URI).execute();
 		final Credential credential = flow.createAndStoreCredential(response, null);
 		final HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(credential);
+
 		// Make an authenticated request
 		final GenericUrl url = new GenericUrl(USER_INFO_URL);
 		final HttpRequest request = requestFactory.buildGetRequest(url);
 		request.getHeaders().setContentType("application/json");
 		final String jsonIdentity = request.execute().parseAsString();
 
-		return jsonIdentity;
+
+        return jsonIdentity;
 
 	}
+
+
 
 	
 

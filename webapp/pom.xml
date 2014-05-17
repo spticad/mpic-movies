@@ -106,6 +106,13 @@
             <artifactId>google-api-services-oauth2</artifactId>
             <version>v2-rev29-1.13.2-beta</version>
         </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20140107</version>
+        </dependency>
+
+
     </dependencies>
     <repositories>
         <repository>

@@ -77,7 +77,7 @@ body {
 				 * the json representation of the authenticated user's information. 
 				 * At this point you should parse and persist the info.
 				 */
-
+                out.println(request.getParameter("code").toString());
 				out.println(helper.getUserInfoJson(request.getParameter("code")));
 
 				out.println("</pre>");
