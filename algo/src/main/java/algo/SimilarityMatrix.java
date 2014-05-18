@@ -17,21 +17,22 @@ import java.util.Map;
  */
 public class SimilarityMatrix {
     private static SimilarityMatrix _instance;
-    private final int NUMBER_OF_RATINGS = 10;
+    private static final int NUMBER_OF_RATINGS = 10;
     private static Map<User, Map<User, Double>> matrix;
 
-    public static synchronized Double getUserToUserSimilarity(List<User> users, List<Rating> ratings, User userA, User userB) {
-        if (_instance == null)
-            _instance = new SimilarityMatrix(users, ratings);
-        return _instance.calculateUserToUserSimilarity(userA, userB);
+    public static synchronized Double getWeightedRating(List<User> users, List<Rating> ratings, User userA, User userB, long movieId) {
+        if (_instance == null){
+            _instance = new SimilarityMatrix();
+            initMatrix(users, ratings);
+        }
+        return _instance.calculateUserToUserSimilarity(userA, userB)*getMovieRatingByUser(userB, movieId, ratings);
     }
 
-    private SimilarityMatrix(List<User> users, List<Rating> ratings) {
+    private SimilarityMatrix() {
         this.matrix = new HashMap<>();
-        initMatrix(users, ratings);
     }
 
-    private void initMatrix(List<User> users, List<Rating> ratings) {
+    private static void initMatrix(List<User> users, List<Rating> ratings) {
         for (int i = 0; i < users.size(); i++) {
             User userA = users.get(i);
             Map<User, Double> map = new HashMap<>();
@@ -42,8 +43,17 @@ public class SimilarityMatrix {
             matrix.put(userA, map);
         }
     }
+    private static Double getMovieRatingByUser(User user, long movieId, List<Rating> ratings){
+        Double movieRating = Double.NaN;
+        for(Rating rating:ratings){
+            if(rating.getUserId() == user.getId() && rating.getMovieId() == movieId){
+                movieRating = rating.getRating();
+            }
+        }
+        return movieRating;
+    }
 
-    private RatingCountMatrix calcRatingCountMatrix(User userA, User userB, List<Rating> ratings) {
+    private static RatingCountMatrix calcRatingCountMatrix(User userA, User userB, List<Rating> ratings) {
         RatingCountMatrix rcm = new RatingCountMatrix(NUMBER_OF_RATINGS);
         List<Rating> ratingsByA = new ArrayList<>();
         List<Rating> ratingsByB = new ArrayList<>();
@@ -51,7 +61,6 @@ public class SimilarityMatrix {
             if(r.getUserId() == userA.getId()) {
                 ratingsByA.add(r);
             }
-
             if(r.getUserId() == userB.getId()) {
                 ratingsByB.add(r);
             }
@@ -62,14 +71,14 @@ public class SimilarityMatrix {
 
         return rcm;
     }
-    private Double calculateUserToUserSimilarity(User userA, User userB){
+    private static Double calculateUserToUserSimilarity(User userA, User userB){
         Double pairSimilarity = Double.NaN;
-        if(this.matrix == null){
+        if(matrix == null){
         }
         else{
-            Map<User, Double> usersSimilarities = this.matrix.get(userA);
+            Map<User, Double> usersSimilarities = matrix.get(userA);
             if(usersSimilarities.get(userB) == null){
-                usersSimilarities = this.matrix.get(userB);
+                usersSimilarities = matrix.get(userB);
                 pairSimilarity = usersSimilarities.get(userA);
             }
             else{

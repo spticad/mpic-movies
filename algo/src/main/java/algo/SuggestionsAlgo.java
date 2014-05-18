@@ -43,7 +43,7 @@ public class SuggestionsAlgo {
 //        for (User anotherUser : closeUsers) {
 //            double ratingByAnotherUser = getRatingByUser(anotherUser, movie, ratings);
 //            if (!Double.isNaN(ratingByAnotherUser)) {   //if item was rated
-//                //double similarityBetweenUsers = similarityMatrix.getUserToUserSimilarity(users, ratings, users.get(0), users.get(1)); //= similarityValues[allUsers.indexOf(user)][allUsers.indexOf(anotherUser)];
+//                //double similarityBetweenUsers = similarityMatrix.getWeightedRating(users, ratings, users.get(0), users.get(1)); //= similarityValues[allUsers.indexOf(user)][allUsers.indexOf(anotherUser)];
 //                double weightRating = similarityBetweenUsers * ratingByAnotherUser;
 //                weightRatingSum += weightRating;
 //                similaritySum += similarityBetweenUsers;

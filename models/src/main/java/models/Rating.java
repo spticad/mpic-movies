@@ -5,12 +5,12 @@ import org.joda.time.DateTime;
 public class Rating {
     private long userId;
     private long movieId;
-    private short rating;
+    private double rating;
     private DateTime timestamp;
 
     public Rating() {}
 
-    public Rating(long userId, long movieId, short rating, DateTime timestamp) {
+    public Rating(long userId, long movieId, double rating, DateTime timestamp) {
         this.userId = userId;
         this.movieId = movieId;
         this.rating = rating;
@@ -33,7 +33,7 @@ public class Rating {
         this.movieId = movieId;
     }
 
-    public short getRating() {
+    public double getRating() {
         return rating;
     }
 
