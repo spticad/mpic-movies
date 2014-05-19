@@ -14,33 +14,27 @@ import java.util.Map;
  */
 public class SuggestionsAlgo {
 
-    public List<Movie> getRecommended(User user, Map<User, List<Rating>> ratings, List<Movie> notRatedMovies, int limit) {
-        List<RatedMovie> recommendations = new ArrayList<>();
-       // predictMovieRatings(user, recommendations, notRatedMovies, ratings);
-        Collections.sort(recommendations);
-        List<Movie> recommendedMovies = new ArrayList<>(limit);
-        for (int i = 0; i < limit; i++) {
-            recommendedMovies.add(recommendations.get(i).getMovie());
-        }
-        return recommendedMovies;
-    }
+    public List<Object> getRecommended(List<User> similarUsers, User user, Map<User, List<Rating>> ratings, List<Movie> notRatedMovies, int limit) {
+        List<RatedObject> candidatesToRecommend = new ArrayList<>();
+        List<Object> recommended = new ArrayList<Object>();
+        SimilarityMatrix sm = SimilarityMatrix.getInstance(similarUsers, ratings);
 
-    private void predictMovieRatings(List<User> closeUsers, User user, List<RatedMovie> recommendations, List<Movie> notRated, Map<User, List<Rating>> ratings) {
-        for (Movie movie : notRated) {
-            double predictedRating = PredictRating(closeUsers, user, movie, ratings);
-            if (!Double.isNaN(predictedRating)) {
-                recommendations.add(new RatedMovie(movie, predictedRating));
-            }
+        for(Movie movie:notRatedMovies){
+            //Double predictedRating =  sm.getWeightedRating(ratings, )
+//            if( predictedRating != Double.NaN){
+//                candidatesToRecommend.add(new RatedObject(movie, predictedRating));
+//            }
         }
+        Collections.sort(candidatesToRecommend);
+        for(int i = 0; i<limit; i++){
+            recommended.add(candidatesToRecommend.get(i).getObject());
+        }
+        return recommended;
     }
 
     private double PredictRating(List<User> closeUsers, User user, Movie movie, Map<User, List<Rating>> ratings) {
         double predictedRating = Double.NaN;
-        double similaritySum = 0.0;
-        double weightRatingSum = 0.0;
-        SimilarityMatrix similarityMatrix;
-
-//        for (User anotherUser : closeUsers) {
+       for (User anotherUser : closeUsers) {
 //            double ratingByAnotherUser = getRatingByUser(anotherUser, movie, ratings);
 //            if (!Double.isNaN(ratingByAnotherUser)) {   //if item was rated
 //                //double similarityBetweenUsers = similarityMatrix.getWeightedRating(users, ratings, users.get(0), users.get(1)); //= similarityValues[allUsers.indexOf(user)][allUsers.indexOf(anotherUser)];
@@ -51,7 +45,7 @@ public class SuggestionsAlgo {
 //            if (similaritySum > 0.0) {
 //                predictedRating = weightRatingSum / similaritySum;
 //            }
-//        }
+        }
         return predictedRating;
     }
 

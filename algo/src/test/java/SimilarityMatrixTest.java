@@ -43,12 +43,12 @@ public class SimilarityMatrixTest {
         }};
     }
 
-    /*@Test
-    public void testGetUserToUserSimilarity(){
-        Double expected = similarityMatrix.getWeightedRating(users, ratings, users.get(0), users.get(1));
-        Double actual = similarityMatrix.getWeightedRating(users, ratings, users.get(1), users.get(0));
-        Assert.assertEquals(expected, actual);
-    }*/
+//    @Test
+//    public void testGetUserToUserSimilarity(){
+//        Double expected = similarityMatrix.getWeightedRating(users, ratings, users.get(0), users.get(2), 1);
+//        Double actual = 0.0;
+//        Assert.assertEquals(expected, actual);
+//    }
 
 
 }

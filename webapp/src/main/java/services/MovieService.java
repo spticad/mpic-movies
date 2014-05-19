@@ -1,8 +1,9 @@
 package services;
 
 import algo.PreferencesAlgo;
+import algo.RatedObject;
+import algo.SimilarityMatrix;
 import algo.SuggestionsAlgo;
-import config.Configuration;
 import db.DbiManager;
 import db.PopularMoviesManager;
 import db.daologic.MovieDaoLogic;
@@ -26,6 +27,7 @@ public class MovieService {
     private RatingDaoLogic ratingDaoLogic = new RatingDaoLogic(DbiManager.getDbi());
     private PreferencesAlgo preferencesAlgo = new PreferencesAlgo();
     private SuggestionsAlgo suggestionsAlgo = new SuggestionsAlgo();
+    private SimilarityMatrix similarityMatrix;
 
     public Movie getForRating() {
 //        Movie[] movies = new Movie[] {
@@ -49,15 +51,18 @@ public class MovieService {
         return r;
     }
 
-    public List<Movie> getRecommended(int limit) {
+    public List<Object> getRecommended(int limit) {
         List<User> allUsers = userDaoLogic.getAll();
-        //TODO: get user by token
+        Map<User, List<Rating>> ratings = getRatings(allUsers);
+        SimilarityMatrix similarityMatrix = SimilarityMatrix.getInstance(allUsers, ratings);
+
+                //TODO: get user by token
         User user = new User(2145, "", "", "", "", "", null);
         //TODO: add similar users count property
-        List<User> similarUsers = getMostSimilarUsers(user, 10);
+        List<User> similarUsers = getMostSimilarUsers(user, 10, allUsers);
         Map<User, List<Rating>> ratingsByUsers = getRatings(similarUsers);
         List<Movie> notRatedMovies = movieDaoLogic.getNotRatedMovies(user.getId());
-        return suggestionsAlgo.getRecommended(user, ratingsByUsers, notRatedMovies, limit);
+        return suggestionsAlgo.getRecommended(similarUsers, user, ratingsByUsers, notRatedMovies, limit);
     }
 
     private Map<User, List<Rating>> getRatings(List<User> users) {
@@ -68,10 +73,21 @@ public class MovieService {
         return ratingsByUsers;
     }
 
-    private List<User> getMostSimilarUsers(User user, int limit) {
+    private static List<User> getMostSimilarUsers(User user, int limit, List<User> users) {
         List<User> similarUsers = new ArrayList<>();
+        List<RatedObject> ratedUsers = new ArrayList<>();
+        Double userToUserSimilarity = Double.NaN;
 
-        //TODO: fill by similarity matrix
+        for (User userB:users){
+            userToUserSimilarity = SimilarityMatrix.getUserToUserSimilarity(user, userB);
+            if(userToUserSimilarity != Double.NaN){
+                ratedUsers.add(new RatedObject(userB, userToUserSimilarity));
+            }
+        }
+        Collections.sort(ratedUsers);
+        for(int i = 0; i< (ratedUsers.size()>=limit?limit:ratedUsers.size()); i++){
+            similarUsers.add((User)ratedUsers.get(i).getObject());
+        }
         return similarUsers;
     }
 }
