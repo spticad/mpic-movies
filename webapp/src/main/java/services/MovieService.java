@@ -62,7 +62,7 @@ public class MovieService {
         List<User> similarUsers = getMostSimilarUsers(user, 10, allUsers);
         Map<User, List<Rating>> ratingsByUsers = getRatings(similarUsers);
         List<Movie> notRatedMovies = movieDaoLogic.getNotRatedMovies(user.getId());
-        return suggestionsAlgo.getRecommended(similarUsers, user, ratingsByUsers, notRatedMovies, limit);
+        return suggestionsAlgo.getRecommended(similarUsers, user, similarityMatrix, ratingsByUsers, notRatedMovies, limit);
     }
 
     private Map<User, List<Rating>> getRatings(List<User> users) {

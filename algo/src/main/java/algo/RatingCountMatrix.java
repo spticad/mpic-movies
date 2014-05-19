@@ -24,11 +24,11 @@ public class RatingCountMatrix {
     }
 
     public void initMatrix(List<Rating> ratingsByUserA, List<Rating> ratingsByUserB) {
-        for (int i = 0; i<ratingsByUserA.size(); i++){
+        for (int i = 0; i < ratingsByUserA.size(); i++) {
             Rating ratingByA = ratingsByUserA.get(i);
-            for(int j = 0; j<ratingsByUserB.size(); j++){
+            for (int j = 0; j < ratingsByUserB.size(); j++) {
                 Rating ratingByB = ratingsByUserB.get(j);
-                if (ratingByA.getMovieId()==ratingByB.getMovieId()){
+                if (ratingByA.getMovieId() == ratingByB.getMovieId()) {
                     this.matrix[ratingByA.getRating() - 1][ratingByB.getRating() - 1]++;
                 }
             }
@@ -36,24 +36,24 @@ public class RatingCountMatrix {
         logMatrix();
     }
 
-    public void calcTotalCount(){
-        for (int i = 0; i < this.matrix.length; i++){
-            for(int j = 0; j<this.matrix.length; j++){
-                this.totalCount+=this.matrix[i][j];
+    public void calcTotalCount() {
+        for (int i = 0; i < this.matrix.length; i++) {
+            for (int j = 0; j < this.matrix.length; j++) {
+                this.totalCount += this.matrix[i][j];
             }
         }
         System.out.println("Total count: " + this.totalCount);
     }
 
-    public void calcSimilarityCount(){
-        for(int j = 0; j<this.matrix.length; j++){
-            this.similarityCount+=this.matrix[j][j];
+    public void calcSimilarityCount() {
+        for (int j = 0; j < this.matrix.length; j++) {
+            this.similarityCount += this.matrix[j][j];
         }
         System.out.println("Sim count: " + this.similarityCount);
     }
 
     private void logMatrix() {
-        for(int i = 0; i < matrix.length; i++) {
+        for (int i = 0; i < matrix.length; i++) {
             System.out.println(Arrays.toString(matrix[i]));
         }
     }
