@@ -28,8 +28,9 @@ public class SimilarityMatrix {
         return _instance;
     }
 
-    public synchronized Double getWeightedRating(List<Rating> ratings, User userA, User userB, long movieId) {
-        return getUserToUserSimilarity(userA, userB) * getMovieRatingByUser(movieId, ratings);
+    public synchronized static Double getWeightedRating(List<Rating> ratings, User userA, User userB, long movieId) {
+        Double weightedRating = getUserToUserSimilarity(userA, userB) * getMovieRatingByUser(movieId, ratings);
+        return weightedRating;
     }
 
     private SimilarityMatrix() {
@@ -48,8 +49,8 @@ public class SimilarityMatrix {
         }
     }
 
-    private static Short getMovieRatingByUser(long movieId, List<Rating> ratings) {
-        Short movieRating = -1;
+    public static Short getMovieRatingByUser(long movieId, List<Rating> ratings) {
+        Short movieRating = 0;
         for (Rating rating : ratings) {
             if (rating.getMovieId() == movieId) {
                 movieRating = rating.getRating();

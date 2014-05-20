@@ -33,7 +33,7 @@ public class RatingCountMatrix {
                 }
             }
         }
-        logMatrix();
+        logMatrix(ratingsByUserA.get(0).getUserId(), ratingsByUserB.get(0).getUserId());
     }
 
     public void calcTotalCount() {
@@ -52,7 +52,8 @@ public class RatingCountMatrix {
         System.out.println("Sim count: " + this.similarityCount);
     }
 
-    private void logMatrix() {
+    private void logMatrix(long userAId, long userBId) {
+        System.out.println("RCM for user " + userAId + " and user " + userBId);
         for (int i = 0; i < matrix.length; i++) {
             System.out.println(Arrays.toString(matrix[i]));
         }

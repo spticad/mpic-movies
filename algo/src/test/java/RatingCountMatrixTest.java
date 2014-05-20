@@ -19,7 +19,7 @@ public class RatingCountMatrixTest {
     private static List<Rating> ratingsByA, ratingsByB;
 
     @BeforeClass
-    public static void initRatings(){
+    public static void initRatings() {
         ratingsByA = new ArrayList() {{
             add(new Rating(1, 1, (short) 1, new DateTime(2014, 5, 10, 12, 17, 11, 105)));
             add(new Rating(1, 2, (short) 1, new DateTime(2014, 5, 10, 12, 18, 11, 105)));
@@ -33,7 +33,7 @@ public class RatingCountMatrixTest {
     }
 
     @Test
-    public void testInitMatrix(){
+    public void testInitMatrix() {
         RatingCountMatrix rcm = new RatingCountMatrix(3);
         rcm.initMatrix(ratingsByA, ratingsByB);
         rcm.calcSimilarityCount();
