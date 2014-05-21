@@ -5,6 +5,7 @@ import org.glassfish.jersey.test.JerseyTest;
 import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -79,7 +80,7 @@ public class MovieResourceTest extends JerseyTest {
 
     @Test
     public void testGetRecommended() throws IOException {
-        Mockito.when(movieService.getRecommended(3)).thenReturn(new ArrayList<Object>(){{
+        Mockito.when(movieService.getRecommended(3)).thenReturn(new ArrayList<Movie>(){{
             add(new Movie(1, "Casper", "url1", "tt1"));
             add(new Movie(2, "Casper 2", "url2", "tt2"));
             add(new Movie(3, "Casper 3", "url3", "tt3"));

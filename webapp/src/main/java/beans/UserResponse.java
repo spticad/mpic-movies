@@ -7,14 +7,14 @@ import models.User;
  */
 public class UserResponse {
 
-    String urlToRedirect;
-    User user;
+    private String urlToRedirect;
+    private User user;
 
-    public UserResponse(User user) {
-        this.user = user;
+    public UserResponse() {
     }
 
-    public UserResponse(String urlToRedirect) {
+    public UserResponse(User user, String urlToRedirect) {
+        this.user = user;
         this.urlToRedirect = urlToRedirect;
     }
 

@@ -8,9 +8,11 @@ import db.daologic.UserDaoLogic;
 import models.User;
 import oauth.GoogleAuthHelper;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.joda.time.DateTime;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.ws.rs.GET;
@@ -18,7 +20,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
@@ -37,14 +38,12 @@ public class UserResource {
     @Path("/me")
     @Produces(MediaType.APPLICATION_JSON)
     public UserResponse getMyself(@Context HttpServletRequest request,
-                                  @Context HttpHeaders headers) throws IOException {
-        boolean googleSaysOK = false;
-        final UserDaoLogic userDaoLogic = new UserDaoLogic(DbiManager.getDbi());
-        final String authToken = headers.getCookies().get(AUTH_TOKEN).toString();
+                                  @Context HttpHeaders headers) throws IOException, JSONException {
 
+        final UserDaoLogic userDaoLogic = new UserDaoLogic(DbiManager.getDbi());
 
         if (headers.getCookies().get(AUTH_TOKEN) != null) {
-
+            final String authToken = headers.getCookies().get(AUTH_TOKEN).toString();
 
             String googleAnswer = helper.getUserInfoJson(authToken);
             JSONObject json = new JSONObject(googleAnswer);
@@ -57,15 +56,13 @@ public class UserResource {
 
             User user = userDaoLogic.getByGoogleId(googleId);
             if (user == null) {
-
                userDaoLogic.insert(googleId,name,email,image,token,DateTime.now());
             }
             user = userDaoLogic.getByGoogleId(googleId);
-            return new UserResponse(user);
+            return new UserResponse(user, "");
         } else {
-            String urlToRedirect = helper.buildLoginUrl(); // TODO
-
-            return new UserResponse(urlToRedirect);
+            String urlToRedirect = helper.buildLoginUrl();
+            return new UserResponse(null, urlToRedirect);
         }
     }
 
@@ -74,8 +71,8 @@ public class UserResource {
     @Path("/auth")
     public void authFromGoogle(@Context HttpServletResponse response,
                                @QueryParam("code") String token,
-                               @Context HttpHeaders headers) {
-        headers.getCookies().put(AUTH_TOKEN, new Cookie(AUTH_TOKEN, token));
-//       TODO: response.sendRedirect(getUrlTo("/"));
+                               @Context HttpHeaders headers) throws IOException {
+        response.addCookie(new Cookie(AUTH_TOKEN, token));
+        response.sendRedirect("/");
     }
 }

@@ -51,7 +51,7 @@ public class MovieService {
         return r;
     }
 
-    public List<Object> getRecommended(int limit) {
+    public List<Movie> getRecommended(int limit) {
         List<User> allUsers = userDaoLogic.getAll();
         Map<User, List<Rating>> ratings = getRatings(allUsers);
         SimilarityMatrix similarityMatrix = SimilarityMatrix.getInstance(allUsers, ratings);
@@ -70,8 +70,8 @@ public class MovieService {
         }
         return ratingsByUsers;
     }
-//TODO: make private
-    public static List<User> getMostSimilarUsers(User user, int limit, List<User> users) {
+
+    private static List<User> getMostSimilarUsers(User user, int limit, List<User> users) {
         List<User> similarUsers = new ArrayList<>();
         List<RatedObject> ratedUsers = new ArrayList<>();
         Double userToUserSimilarity = Double.NaN;

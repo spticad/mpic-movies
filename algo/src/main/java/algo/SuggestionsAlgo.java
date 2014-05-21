@@ -14,9 +14,9 @@ import java.util.Map;
  */
 public class SuggestionsAlgo {
 
-    public List<Object> getRecommended(List<User> similarUsers, User user, SimilarityMatrix similarityMatrix, Map<User, List<Rating>> ratings, List<Movie> notRatedMovies, int limit) {
+    public List<Movie> getRecommended(List<User> similarUsers, User user, SimilarityMatrix similarityMatrix, Map<User, List<Rating>> ratings, List<Movie> notRatedMovies, int limit) {
         List<RatedObject> candidatesToRecommend = new ArrayList<>();
-        List<Object> recommended = new ArrayList<>();
+        List<Movie> recommended = new ArrayList<>();
         double commonRatting;
         for (Movie movie : notRatedMovies) {
             commonRatting = 0;
@@ -38,7 +38,7 @@ public class SuggestionsAlgo {
             System.out.println(ratedObject.getObject().toString() + " rat: " + ratedObject.getObjectRating());
         }
         for (int i = 0; i < limit; i++) {
-            recommended.add(candidatesToRecommend.get(i).getObject());
+            recommended.add((Movie)candidatesToRecommend.get(i).getObject());
         }
         return recommended;
     }

@@ -75,8 +75,8 @@ public class SuggestionsAlgoTest {
         SimilarityMatrix similarityMatrix = SimilarityMatrix.getInstance(users, ratings);
         int limit = 3;
         SimilarityMatrix.getInstance(users, ratings);
-        List<Object> actual = new SuggestionsAlgo().getRecommended(similarUsers, user, similarityMatrix, ratings, notRatedMovies, limit);
-        List<Object> expected = new ArrayList() {{
+        List<Movie> actual = new SuggestionsAlgo().getRecommended(similarUsers, user, similarityMatrix, ratings, notRatedMovies, limit);
+        List<Movie> expected = new ArrayList() {{
             add(new Movie(4, "Casper 4", "url 4", "tt4"));
             add(new Movie(6, "Casper 3", "url 3", "tt3"));
             add(new Movie(5, "Casper 5", "url 5", "tt5"));

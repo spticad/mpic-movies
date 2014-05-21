@@ -11,6 +11,9 @@ public class User {
     private String token;
     private DateTime registrationDate;
 
+    public User() {
+    }
+
     public User(String token, String googleId) {
         this.token = token;
         this.googleId = googleId;

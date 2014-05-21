@@ -8,15 +8,21 @@ $.get("http://localhost:8080/api/user/me", function (data) {
 
     response=data;
     if (response.urlToRedirect != null){
-        var div = document.getElementById('buttonPlace');
-        var button= document.createElement('input');
-        button.setAttribute('type','button');
-        button.setAttribute('name','authButton');
-        button.setAttribute('value','Auth with Google');
-        button.setAttribute('onclick','top.location=='+response.urlToRedirect);
-        div.appendChild(button);
+
+        function redirect(e) {
+            e.preventDefault();
+            $(location).attr('href', response.urlToRedirect);
+            return false;
+        }
+
+        var loginBtn = $('<button/>')
+            .text('Auth with Google')
+            .click(redirect);
+        $('#buttonPlace').append(loginBtn);
     }
-    else{
+    else {
+        var user = JSON.parse(response.user);
+        console.log(user.name);
         // TODO: Make something with user
     }
 });

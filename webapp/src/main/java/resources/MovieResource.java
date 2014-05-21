@@ -44,7 +44,7 @@ public class MovieResource {
     @GET
     @Path("/recommended")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Object> getRecommended(@DefaultValue("3") @QueryParam("limit") int limit) {
+    public List<Movie> getRecommended(@DefaultValue("3") @QueryParam("limit") int limit) {
         log.info("recommended films with limit {}", limit);
         return service.getRecommended(limit);
     }
