@@ -4,7 +4,7 @@
 var url="";
 var response = {};
 
-$.get("http://localhost:8080/api/user/me", function (data) {
+$.get("http://localhost:8080/api/user/url", function (data) {
 
     response=data;
     if (response.urlToRedirect != null){

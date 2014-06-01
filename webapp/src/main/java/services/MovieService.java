@@ -43,9 +43,9 @@ public class MovieService {
         return preferencesAlgo.getForRating(PopularMoviesManager.getPopularMovies(), watched);
 
     }
-
+   // To get googleIF  in MovieResource.java write  Rating r = service.addRating(movieId, rating,id); instead  Rating r = service.addRating(movieId, rating);
     public Rating addRating(long movieId, short rating) {
-        //TODO: get user id by token
+        //TODO: get user id by token or googleID
         Rating r = new Rating(FAKE_USER_ID, movieId, rating, DateTime.now());
         ratingDaoLogic.insert(r.getUserId(), r.getMovieId(), r.getRating(), r.getTimestamp());
         return r;
@@ -55,7 +55,7 @@ public class MovieService {
         List<User> allUsers = userDaoLogic.getAll();
         Map<User, List<Rating>> ratings = getRatings(allUsers);
         SimilarityMatrix similarityMatrix = SimilarityMatrix.getInstance(allUsers, ratings);
-                //TODO: get user by token
+                //TODO: get user by token or googleID
         User user = new User(2145, "", "", "", "", "", null);
         List<User> similarUsers = getMostSimilarUsers(user, 10, allUsers);
         Map<User, List<Rating>> ratingsByUsers = getRatings(similarUsers);

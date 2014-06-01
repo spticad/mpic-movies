@@ -6,6 +6,8 @@ var rateLimit=10;
 var moveUp=false;
 var animationFinished = true;
 var firstOne = true;
+var url="";
+var response = {};
 
 $(".rateit").bind('rated', function () {
     $("#ratedvalue").html($(this).rateit('value') + " of 10");
@@ -136,9 +138,36 @@ function handleNextMovie() {
 }
 function postRating(idMovie, rating) {
 
-    $.post("http://localhost:8080/api/movies/" + idMovie + "/rate", {rating: rating});
+    $.post("http://localhost:8080/api/movies/" + idMovie + "/rate", {rating: rating},{id: getCookie(authToken)});
 }
 
-//get first movie for rating
+// возвращает cookie с именем name, если есть, если нет, то undefined
+function getCookie(name) {
+    var matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : null;
+}
 
+
+function addUser(){
+    var googleId = getCookie("authToken");
+    if ( googleId != null){
+        $.get("http://localhost:8080/api/user/picture", function (data) {
+
+
+        console.log(data.toString());
+
+            var elem = document.createElement("img");
+            elem.src = data.toString();
+            document.getElementById("user").appendChild(elem);
+
+        });
+    } else {
+        alert("NOPE");
+    }
+
+}
+//get first movie for rating
+    addUser();
     handleNextMovie();
