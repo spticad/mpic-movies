@@ -32,12 +32,16 @@ public class MovieResource {
         return service.getForRating();
     }
 
+
     @POST
     @Path("{id}/rate")
     @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response rate(@PathParam("id") long movieId, @FormParam("rating") short rating, @FormParam("googleID") String id) {
-        log.info("post rating {} for movie with id {} googleId = {}", rating, movieId,id);
-        Rating r = service.addRating(movieId, rating);
+
+        log.info("post rating {} for movie with id {} googleId = {}", rating, movieId, id);
+        Rating r = service.addRating(id, movieId, rating);
+        //    Rating r = service.addRating(movieId, rating);
         return Response.status(Response.Status.CREATED).entity(r).build();
     }
 

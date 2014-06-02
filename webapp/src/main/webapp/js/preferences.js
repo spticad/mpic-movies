@@ -2,11 +2,11 @@ var defaultValue = "Rate this movie";
 var svalue = defaultValue;
 var currentMovie = {};
 var ratedMovies = 0;
-var rateLimit=10;
-var moveUp=false;
+var rateLimit = 10;
+var moveUp = false;
 var animationFinished = true;
 var firstOne = true;
-var url="";
+var url = "";
 var response = {};
 
 $(".rateit").bind('rated', function () {
@@ -19,8 +19,8 @@ $(".rateit").bind('rated', function () {
     //check if number of films is greater than 10 - than redirect to suggestions.html
     if (ratedMovies >= rateLimit) {
         //TODO: use some bootstrap styled confirm dialog
-        jQuery(function($) {
-            $('form[data-form-confirm]').submit(function(e) {
+        jQuery(function ($) {
+            $('form[data-form-confirm]').submit(function (e) {
                 e.preventDefault();
 
                 var form = $(this),
@@ -31,12 +31,12 @@ $(".rateit").bind('rated', function () {
                     backdrop: true
                 });
 
-                modal.find('.btn-confirm').click(function() {
+                modal.find('.btn-confirm').click(function () {
                     modal.modal('hide');
                     form.unbind('submit').submit();
                     window.location.replace("suggestions.html");
                 });
-                modal.find('.btn').click(function() {
+                modal.find('.btn').click(function () {
                     modal.modal('hide');
                     form.unbind('submit').submit();
 
@@ -70,7 +70,7 @@ $(".next").click(function () {
     handleNextMovie();
 });
 
-function setSize(){
+function setSize() {
     $('#poster2').width(220); // Units are assumed to be pixels
     $('#poster2').height(318);
     $('#poster').width(220); // Units are assumed to be pixels
@@ -137,8 +137,11 @@ function handleNextMovie() {
     });
 }
 function postRating(idMovie, rating) {
+    var googleID = getCookie("authToken");
+    console.log(googleID.toString());
+    console.log(rating.toString());
 
-    $.post("http://localhost:8080/api/movies/" + idMovie + "/rate", {rating: rating},{id: getCookie(authToken)});
+    $.post("http://localhost:8080/api/movies/" + idMovie + "/rate", {rating: rating}, {googleID: googleID});
 }
 
 // возвращает cookie с именем name, если есть, если нет, то undefined
@@ -150,16 +153,17 @@ function getCookie(name) {
 }
 
 
-function addUser(){
+function addUser() {
+
     var googleId = getCookie("authToken");
-    if ( googleId != null){
-        $.get("http://localhost:8080/api/user/picture", function (data) {
-
-
-        console.log(data.toString());
-
+    if (googleId != null) {
+        $.get("http://localhost:8080/api/user/picture?googleID=" + googleId, function (data) {
+            console.log(data.toString());
             var elem = document.createElement("img");
+            elem.width = "50";
+            elem.height = "50";
             elem.src = data.toString();
+            // insertText ();
             document.getElementById("user").appendChild(elem);
 
         });
@@ -168,6 +172,7 @@ function addUser(){
     }
 
 }
+
 //get first movie for rating
-    addUser();
-    handleNextMovie();
+addUser();
+handleNextMovie();

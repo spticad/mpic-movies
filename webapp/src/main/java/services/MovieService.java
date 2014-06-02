@@ -28,6 +28,7 @@ public class MovieService {
     private PreferencesAlgo preferencesAlgo = new PreferencesAlgo();
     private SuggestionsAlgo suggestionsAlgo = new SuggestionsAlgo();
     private SimilarityMatrix similarityMatrix;
+    private User user;
 
     public Movie getForRating() {
 //        Movie[] movies = new Movie[] {
@@ -43,20 +44,27 @@ public class MovieService {
         return preferencesAlgo.getForRating(PopularMoviesManager.getPopularMovies(), watched);
 
     }
-   // To get googleIF  in MovieResource.java write  Rating r = service.addRating(movieId, rating,id); instead  Rating r = service.addRating(movieId, rating);
-    public Rating addRating(long movieId, short rating) {
+
+    // To get googleIF  in MovieResource.java write  Rating r = service.addRating(movieId, rating,id); instead  Rating r = service.addRating(movieId, rating);
+    public Rating addRating(String googleId, long movieId, short rating) {
         //TODO: get user id by token or googleID
-        Rating r = new Rating(FAKE_USER_ID, movieId, rating, DateTime.now());
+        googleId = "108006238398491627913";
+        user = userDaoLogic.getByGoogleId(googleId);
+        Rating r = new Rating(user.getId(), movieId, rating, DateTime.now());
         ratingDaoLogic.insert(r.getUserId(), r.getMovieId(), r.getRating(), r.getTimestamp());
         return r;
     }
 
     public List<Movie> getRecommended(int limit) {
+        // public List<Movie> getRecommended(String googleId, int limit) {
+        String googleId;
         List<User> allUsers = userDaoLogic.getAll();
         Map<User, List<Rating>> ratings = getRatings(allUsers);
         SimilarityMatrix similarityMatrix = SimilarityMatrix.getInstance(allUsers, ratings);
-                //TODO: get user by token or googleID
-        User user = new User(2145, "", "", "", "", "", null);
+        googleId = "108006238398491627913";
+
+
+        user = userDaoLogic.getByGoogleId(googleId);
         List<User> similarUsers = getMostSimilarUsers(user, 10, allUsers);
         Map<User, List<Rating>> ratingsByUsers = getRatings(similarUsers);
         List<Movie> notRatedMovies = movieDaoLogic.getNotRatedMovies(user.getId());
@@ -76,15 +84,15 @@ public class MovieService {
         List<RatedObject> ratedUsers = new ArrayList<>();
         Double userToUserSimilarity = Double.NaN;
 
-        for (User userB:users){
+        for (User userB : users) {
             userToUserSimilarity = SimilarityMatrix.getUserToUserSimilarity(user, userB);
-            if(userToUserSimilarity != Double.NaN && userB.getId() != user.getId()){
+            if (userToUserSimilarity != Double.NaN && userB.getId() != user.getId()) {
                 ratedUsers.add(new RatedObject(userB, userToUserSimilarity));
             }
         }
         Collections.sort(ratedUsers);
-        for(int i = 0; i< (ratedUsers.size()>=limit?limit:ratedUsers.size()); i++){
-            similarUsers.add((User)ratedUsers.get(i).getObject());
+        for (int i = 0; i < (ratedUsers.size() >= limit ? limit : ratedUsers.size()); i++) {
+            similarUsers.add((User) ratedUsers.get(i).getObject());
         }
         return similarUsers;
     }

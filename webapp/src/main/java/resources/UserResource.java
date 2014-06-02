@@ -1,21 +1,19 @@
 package resources;
 
 import beans.UserResponse;
-import com.google.api.client.http.HttpRequest;
-
 import db.DbiManager;
 import db.daologic.UserDaoLogic;
 import models.User;
 import oauth.GoogleAuthHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.joda.time.DateTime;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -43,10 +41,10 @@ public class UserResource {
     @Path("/url")
     @Produces(MediaType.APPLICATION_JSON)
     public UserResponse getUrl(@Context HttpServletRequest request,
-                                  @Context HttpHeaders headers) throws IOException, JSONException {
+                               @Context HttpHeaders headers) throws IOException, JSONException {
 
-            String urlToRedirect = helper.buildLoginUrl();
-            return new UserResponse(null, urlToRedirect);
+        String urlToRedirect = helper.buildLoginUrl();
+        return new UserResponse(null, urlToRedirect);
 
     }
 
@@ -70,14 +68,14 @@ public class UserResource {
 
         User user = userDaoLogic.getByGoogleId(googleId);
         // if user come to us for the first time - add to the DB and redirect to preferences page
-        if (user == null){
+        if (user == null) {
             final String email = json.get("email").toString();
             final String name = json.get("name").toString();
             final String image = json.get("picture").toString();
-            userDaoLogic.insert(googleId,name,email,image,token,DateTime.now());
+            userDaoLogic.insert(googleId, name, email, image, token, DateTime.now());
             response.sendRedirect("/preferences.html");
-        // if this is already our user - redirect to the welcome page
-        }else{
+            // if this is already our user - redirect to the welcome page
+        } else {
             response.sendRedirect("/welcome.html");
         }
 
@@ -86,16 +84,20 @@ public class UserResource {
 
     @GET
     @Path("/name")
-    public String GetName (@QueryParam("googleID") String Id){
+    public String GetName(@QueryParam("googleID") String Id) {
+        System.out.println(Id);
         User user = userDaoLogic.getByGoogleId(Id);
         return user.getGoogleName().toString();
 
     }
+
     @GET
     @Path("/picture")
-    public String GetPicture (@QueryParam("googleID") String Id){
+    public String GetPicture(@QueryParam("googleID") String Id) {
+        System.out.println(Id);
         User user = userDaoLogic.getByGoogleId(Id);
         return user.getGoogleImage().toString();
+
 
     }
 }
