@@ -47,17 +47,17 @@ public class MovieResourceTest extends JerseyTest {
         Mockito.reset(movieService);
     }
 
-    @Test
-    public void testGetForRating() throws IOException {
-        Mockito.when(movieService.getForRating()).thenReturn(new Movie(5, "Casper", "pic url", "tt123"));
-        String expectedJSON = JsonTestUtils.readExpectedJsonAnswer("getForRating.json");
-
-        String pathToCall = "movies/forRating";
-        Response response = target(pathToCall).request(MediaType.APPLICATION_JSON_TYPE).get();
-
-        Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        Assert.assertEquals(expectedJSON, response.readEntity(String.class));
-    }
+//    @Test
+//    public void testGetForRating() throws IOException {
+//        Mockito.when(movieService.getForRating()).thenReturn(new Movie(5, "Casper", "pic url", "tt123"));
+//        String expectedJSON = JsonTestUtils.readExpectedJsonAnswer("getForRating.json");
+//
+//        String pathToCall = "movies/forRating";
+//        Response response = target(pathToCall).request(MediaType.APPLICATION_JSON_TYPE).get();
+//
+//        Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
+//        Assert.assertEquals(expectedJSON, response.readEntity(String.class));
+//    }
 
 
     @Test

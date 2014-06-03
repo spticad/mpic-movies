@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class SuggestionsAlgo {
 
-    public List<Movie> getRecommended(List<User> similarUsers, User user, SimilarityMatrix similarityMatrix, Map<User, List<Rating>> ratings, List<Movie> notRatedMovies, int limit) {
+    public List<Movie> getRecommended(List<User> similarUsers, SimilarityMatrix similarityMatrix, Map<User, List<Rating>> ratings, List<Movie> notRatedMovies, int limit) {
         List<RatedObject> candidatesToRecommend = new ArrayList<>();
         List<Movie> recommended = new ArrayList<>();
         double commonRatting;
@@ -23,8 +23,8 @@ public class SuggestionsAlgo {
             double similarityBetweenUsers = 0;
             Double predictedRating;
             for (User otherUser : similarUsers) {
-                similarityBetweenUsers += similarityMatrix.getUserToUserSimilarity(user, otherUser);
-                predictedRating = similarityMatrix.getWeightedRating(ratings.get(otherUser), user, otherUser, movie.getId());
+                similarityBetweenUsers += similarityMatrix.getUserToUserSimilarity(otherUser);
+                predictedRating = similarityMatrix.getWeightedRating(ratings.get(otherUser), otherUser, movie.getId());
                 if (predictedRating != Double.NaN && predictedRating >= 0 && similarityBetweenUsers != Double.NaN) {
                     commonRatting += predictedRating / similarityBetweenUsers;
                 }

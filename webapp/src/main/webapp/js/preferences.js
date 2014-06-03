@@ -132,7 +132,8 @@ function fillMovieData(movie) {
 }
 
 function handleNextMovie() {
-    $.get("http://localhost:8080/api/movies/forRating", function (data) {
+    var googleID = getCookie("authToken");
+    $.get("http://localhost:8080/api/movies/forRating",{googleid:googleID}, function (data) {
         currentMovie = data;
         console.log("forRating data: " + JSON.stringify(currentMovie));
         handleImdbInfo(currentMovie.imdbId, showMovieData);

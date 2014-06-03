@@ -17,19 +17,19 @@ import java.util.Map;
 public class SimilarityMatrix {
     private static SimilarityMatrix _instance = null;
     private static final int NUMBER_OF_RATINGS = 10;
-    private static Map<User, Map<User, Double>> matrix;
+    private static Map<User, Double> matrix;
 
 
-    public synchronized static SimilarityMatrix getInstance(List<User> users, Map<User, List<Rating>> ratings) {
+    public synchronized static SimilarityMatrix getInstance(User userA, List<User> users, Map<User, List<Rating>> ratings) {
         if (_instance == null) {
             _instance = new SimilarityMatrix();
-            initMatrix(users, ratings);
+            initMatrix(userA, users, ratings);
         }
         return _instance;
     }
 
-    public synchronized static Double getWeightedRating(List<Rating> ratings, User userA, User userB, long movieId) {
-        Double weightedRating = getUserToUserSimilarity(userA, userB) * getMovieRatingByUser(movieId, ratings);
+    public synchronized static Double getWeightedRating(List<Rating> ratings, User userB, long movieId) {
+        Double weightedRating = getUserToUserSimilarity(userB) * getMovieRatingByUser(movieId, ratings);
         return weightedRating;
     }
 
@@ -37,16 +37,11 @@ public class SimilarityMatrix {
         this.matrix = new HashMap<>();
     }
 
-    private static void initMatrix(List<User> users, Map<User, List<Rating>> ratings) {
-        for (int i = 0; i < users.size(); i++) {
-            User userA = users.get(i);
-            Map<User, Double> map = new HashMap<>();
-            for (int j = i; j < users.size(); j++) {
+    private static void initMatrix(User userA, List<User> users, Map<User, List<Rating>> ratings) {
+            for (int j = 0; j < users.size(); j++) {
                 RatingCountMatrix rcm = calcRatingCountMatrix(userA, users.get(j), ratings);
-                map.put(users.get(j), (double) rcm.similarityCount / rcm.totalCount);
+                matrix.put(users.get(j), (double) rcm.similarityCount / rcm.totalCount);
             }
-            matrix.put(userA, map);
-        }
     }
 
     public static Short getMovieRatingByUser(long movieId, List<Rating> ratings) {
@@ -70,17 +65,11 @@ public class SimilarityMatrix {
         return rcm;
     }
 
-    public static synchronized Double getUserToUserSimilarity(User userA, User userB) {
+    public static synchronized Double getUserToUserSimilarity(User userB) {
         Double pairSimilarity = Double.NaN;
         if (matrix == null) {
         } else {
-            Map<User, Double> usersSimilarities = matrix.get(userA);
-            if (usersSimilarities.get(userB) == null) {
-                usersSimilarities = matrix.get(userB);
-                pairSimilarity = usersSimilarities.get(userA);
-            } else {
-                pairSimilarity = usersSimilarities.get(userB);
-            }
+            pairSimilarity = matrix.get(userB);
         }
         return pairSimilarity;
     }

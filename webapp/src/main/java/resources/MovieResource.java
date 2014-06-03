@@ -27,9 +27,9 @@ public class MovieResource {
     @GET
     @Path("/forRating")
     @Produces(MediaType.APPLICATION_JSON)
-    public Movie getForRating() {
+    public Movie getForRating(@QueryParam("googleid") String googleId) {
         log.info("get for rating");
-        return service.getForRating();
+        return service.getForRating(googleId);
     }
 
 
