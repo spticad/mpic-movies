@@ -34,10 +34,10 @@ public class MovieResource {
 
 
     @POST
-    @Path("{id}/rate")
+    @Path("{id}/rate/{rating}")
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public Response rate(@PathParam("id") long movieId, @FormParam("rating") short rating, @FormParam("googleID") String id) {
+
+    public Response rate(@PathParam("id") long movieId, @PathParam("rating") short rating, @FormParam("googleID") String id) {
 
         log.info("post rating {} for movie with id {} googleId = {}", rating, movieId, id);
         Rating r = service.addRating(id, movieId, rating);
@@ -48,8 +48,9 @@ public class MovieResource {
     @GET
     @Path("/recommended")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Movie> getRecommended(@DefaultValue("3") @QueryParam("limit") int limit) {
+    public List<Movie> getRecommended(@QueryParam("googleid") String googleId ) {
+        int limit=3;
         log.info("recommended films with limit {}", limit);
-        return service.getRecommended(limit);
+        return service.getRecommended( googleId, limit);
     }
 }

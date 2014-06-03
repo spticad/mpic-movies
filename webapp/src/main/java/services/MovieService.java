@@ -48,20 +48,20 @@ public class MovieService {
     // To get googleIF  in MovieResource.java write  Rating r = service.addRating(movieId, rating,id); instead  Rating r = service.addRating(movieId, rating);
     public Rating addRating(String googleId, long movieId, short rating) {
         //TODO: get user id by token or googleID
-        googleId = "108006238398491627913";
+
         user = userDaoLogic.getByGoogleId(googleId);
         Rating r = new Rating(user.getId(), movieId, rating, DateTime.now());
         ratingDaoLogic.insert(r.getUserId(), r.getMovieId(), r.getRating(), r.getTimestamp());
         return r;
     }
 
-    public List<Movie> getRecommended(int limit) {
-        // public List<Movie> getRecommended(String googleId, int limit) {
-        String googleId;
+
+         public List<Movie> getRecommended(String googleId, int limit) {
+
         List<User> allUsers = userDaoLogic.getAll();
         Map<User, List<Rating>> ratings = getRatings(allUsers);
         SimilarityMatrix similarityMatrix = SimilarityMatrix.getInstance(allUsers, ratings);
-        googleId = "108006238398491627913";
+
 
 
         user = userDaoLogic.getByGoogleId(googleId);

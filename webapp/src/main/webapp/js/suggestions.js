@@ -1,5 +1,6 @@
 var defaultValue = "Rate this movie";
 var svalue = new Array();
+const limitCount = 3;
 svalue[0] = defaultValue;
 svalue[1] = defaultValue;
 svalue[2] = defaultValue;
@@ -129,9 +130,26 @@ $(".watched").click(function () {
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+function getCookie(name) {
+    var matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : null;
+}
 
+function handleNextMovie() {
+    var googleId = getCookie("authToken");
+    $.get("http://localhost:8080/api/movies/recommended", {googleid: googleId}, function (data) {
+        console.log(data.toString());
+        currentMovie = data;
+        console.log("forRating data: " + JSON.stringify(currentMovie));
+        handleImdbInfo(currentMovie.imdbId, showMovieData);
+    });
+}
 
-
+$( document ).ready(function() {
+    handleNextMovie();
+});
 var movies = {
     '1': {
         'title': 'The Social Network',

@@ -2,7 +2,7 @@ var defaultValue = "Rate this movie";
 var svalue = defaultValue;
 var currentMovie = {};
 var ratedMovies = 0;
-var rateLimit = 10;
+var rateLimit = 8;
 var moveUp = false;
 var animationFinished = true;
 var firstOne = true;
@@ -19,30 +19,32 @@ $(".rateit").bind('rated', function () {
     //check if number of films is greater than 10 - than redirect to suggestions.html
     if (ratedMovies >= rateLimit) {
         //TODO: use some bootstrap styled confirm dialog
-        jQuery(function ($) {
-            $('form[data-form-confirm]').submit(function (e) {
-                e.preventDefault();
-
-                var form = $(this),
-                    modal = $('#' + form.attr('data-form-confirm'))
-
-                modal.modal({
-                    show: true,
-                    backdrop: true
-                });
-
-                modal.find('.btn-confirm').click(function () {
-                    modal.modal('hide');
-                    form.unbind('submit').submit();
-                    window.location.replace("suggestions.html");
-                });
-                modal.find('.btn').click(function () {
-                    modal.modal('hide');
-                    form.unbind('submit').submit();
-
-                });
-            });
-        });
+//        jQuery(function ($) {
+//            $('form[data-form-confirm]').submit(function (e) {
+//                e.preventDefault();
+//
+//                var form = $(this),
+//                    modal = $('#' + form.attr('data-form-confirm'))
+//
+//                modal.modal({
+//                    show: true,
+//                    backdrop: true
+//                });
+//
+//                modal.find('.btn-confirm').click(function () {
+//                    modal.modal('hide');
+//                    form.unbind('submit').submit();
+//                    window.location.replace("suggestions.html");
+//                });
+//                modal.find('.btn').click(function () {
+//                    modal.modal('hide');
+//                    form.unbind('submit').submit();
+//
+//                });
+//            });
+//        });
+        alert("You rated enough movies to get recommendations")  ;
+        window.location.replace("suggestions.html");
     }
     else {
         handleNextMovie();
@@ -141,7 +143,7 @@ function postRating(idMovie, rating) {
     console.log(googleID.toString());
     console.log(rating.toString());
 
-    $.post("http://localhost:8080/api/movies/" + idMovie + "/rate", {rating: rating}, {googleID: googleID});
+    $.post("http://localhost:8080/api/movies/" + idMovie + "/rate/"+rating, {googleID: googleID});
 }
 
 // возвращает cookie с именем name, если есть, если нет, то undefined

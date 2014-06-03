@@ -6,9 +6,12 @@ function insertText () {
 }
 function getName (){
     var googleId = getCookie("authToken");
-    $.get("http://localhost:8080/api/user/name&googleID="+googleId, function (data) {
+    $.get("http://localhost:8080/api/user/name?googleID="+googleId, function (data) {
        console.log(data.toString());
        return data.toString();
 
+    });
+    $( document ).ready(function() {
+       insertText();
     });
 }
