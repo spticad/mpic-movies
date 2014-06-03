@@ -18,6 +18,8 @@ $.get("http://localhost:8080/api/user/url", function (data) {
         var loginBtn = $('<button/>')
             .text('Auth with Google')
             .click(redirect);
+
+
         $('#buttonPlace').append(loginBtn);
     }
     else {

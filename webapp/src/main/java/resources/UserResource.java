@@ -78,8 +78,6 @@ public class UserResource {
         } else {
             response.sendRedirect("/welcome.html");
         }
-
-
     }
 
     @GET

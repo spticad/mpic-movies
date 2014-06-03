@@ -91,6 +91,7 @@ public class MovieService {
                 ratedUsers.add(new RatedObject(userB, userToUserSimilarity));
             }
         }
+        System.setProperty("java.util.Arrays.useLegacyMergeSort", "true");
         Collections.sort(ratedUsers);
         for (int i = 0; i < (ratedUsers.size() >= limit ? limit : ratedUsers.size()); i++) {
             similarUsers.add((User) ratedUsers.get(i).getObject());

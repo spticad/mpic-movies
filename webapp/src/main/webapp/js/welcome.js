@@ -11,7 +11,14 @@ function getName (){
        return data.toString();
 
     });
-    $( document ).ready(function() {
-       insertText();
-    });
+
 }
+function getCookie(name) {
+    var matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : null;
+}
+$( document ).ready(function() {
+    insertText();
+});
