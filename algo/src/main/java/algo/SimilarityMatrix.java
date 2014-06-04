@@ -40,7 +40,7 @@ public class SimilarityMatrix {
     private static void initMatrix(User userA, List<User> users, Map<User, List<Rating>> ratings) {
             for (int j = 0; j < users.size(); j++) {
                 RatingCountMatrix rcm = calcRatingCountMatrix(userA, users.get(j), ratings);
-                matrix.put(users.get(j), (double) rcm.similarityCount / rcm.totalCount);
+                matrix.put(users.get(j), (double) rcm.similarityCount / (rcm.totalCount == 0 ? 1 : rcm.totalCount));
             }
     }
 
@@ -66,12 +66,12 @@ public class SimilarityMatrix {
     }
 
     public static synchronized Double getUserToUserSimilarity(User userB) {
-        Double pairSimilarity = Double.NaN;
+        Double pairSimilarity = 0.0;
         if (matrix == null) {
         } else {
             pairSimilarity = matrix.get(userB);
         }
-        return pairSimilarity;
+        return (pairSimilarity == Double.NaN ? 0: pairSimilarity);
     }
 
 }

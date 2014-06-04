@@ -17,18 +17,21 @@ public class SuggestionsAlgo {
     public List<Movie> getRecommended(List<User> similarUsers, SimilarityMatrix similarityMatrix, Map<User, List<Rating>> ratings, List<Movie> notRatedMovies, int limit) {
         List<RatedObject> candidatesToRecommend = new ArrayList<>();
         List<Movie> recommended = new ArrayList<>();
-        double commonRatting;
+        Double commonRatting;
+        Double iSimilarity = 0.0;
         for (Movie movie : notRatedMovies) {
-            commonRatting = 0;
-            double similarityBetweenUsers = 0;
+            commonRatting = 0.0;
+            Double similarityBetweenUsers = 0.0;
             Double predictedRating;
             for (User otherUser : similarUsers) {
-                similarityBetweenUsers += similarityMatrix.getUserToUserSimilarity(otherUser);
+                iSimilarity = similarityMatrix.getUserToUserSimilarity(otherUser);
                 predictedRating = similarityMatrix.getWeightedRating(ratings.get(otherUser), otherUser, movie.getId());
-                if (predictedRating != Double.NaN && predictedRating >= 0 && similarityBetweenUsers != Double.NaN) {
-                    commonRatting += predictedRating / similarityBetweenUsers;
+                if (predictedRating != Double.NaN && iSimilarity != Double.NaN && iSimilarity >= 0) {
+                    similarityBetweenUsers += iSimilarity;
+                    commonRatting += predictedRating;
                 }
             }
+            commonRatting /= similarityBetweenUsers;
             if (commonRatting != Double.NaN) {
                 candidatesToRecommend.add(new RatedObject(movie, commonRatting));
             }
